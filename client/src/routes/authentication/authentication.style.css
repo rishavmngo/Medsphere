@@ -1,0 +1,42 @@
+.Authentication-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background: #fdc740; */
+}
+.Authentication-container {
+  height: 60vh;
+  max-width: 800px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.Authentication-poster {
+  background-image: url(../../assets/auth-poster-v1.jpg);
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: inherit;
+}
+.Authentication-poster-foreground {
+  width: 50%;
+}
+.Authentication-poster-title {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+.Authentication-poster-desp {
+  font-size: 0.9rem;
+}
+.Authentication-type {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

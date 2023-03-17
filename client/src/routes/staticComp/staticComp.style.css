@@ -1,0 +1,16 @@
+.StaticComp-container {
+  /* height: 100vh; */
+}
+.main-layout {
+  height: 50%;
+}
+.main-layout .app-container {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  height: 100%;
+}
+
+.main-layout .app-container > *:nth-child(1) {
+  /* border: 1px solid black; */
+  margin-right: 30px;
+}

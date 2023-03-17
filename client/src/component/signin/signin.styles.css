@@ -1,0 +1,24 @@
+.Login-Container .inputs > *:nth-child(1) {
+  margin-bottom: 30px;
+}
+
+.Login-Container .inputs > *:nth-child(2) {
+  margin-bottom: 40px;
+}
+
+.buttons {
+  margin-bottom: 0px;
+}
+
+.register-link {
+  margin-top: 100px;
+  color: #888888;
+}
+.register-link-btn {
+  color: black;
+  cursor: pointer;
+}
+
+.register-link-btn:hover {
+  color: gray;
+}

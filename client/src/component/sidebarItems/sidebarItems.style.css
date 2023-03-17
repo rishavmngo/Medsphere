@@ -1,0 +1,26 @@
+.route-item {
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  color: #2f2f2f;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.route-item:hover {
+  background: #dfdfdf;
+}
+
+.active {
+  background: #dfdfdf;
+}
+
+.route-item-icon {
+  font-size: 1.8rem;
+  margin-right: 20px;
+  line-height: 15px;
+}
+.route-item-name {
+  font-size: 1.5rem;
+  line-height: 15px;
+}

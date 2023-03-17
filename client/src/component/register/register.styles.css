@@ -1,0 +1,17 @@
+.Register-Container .inputs > * {
+  margin-bottom: 30px;
+}
+
+.login-link {
+  margin-top: 40px;
+  color: #888888;
+}
+.login-link-btn {
+  color: black;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+.login-link-btn:hover {
+  color: gray;
+}

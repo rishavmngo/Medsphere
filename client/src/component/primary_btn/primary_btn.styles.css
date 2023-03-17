@@ -1,0 +1,18 @@
+.ButtonPrime {
+  text-transform: capitalize;
+  padding: 5px 20px;
+  background: var(--main-color);
+  background: #a6a7ab;
+  border-radius: 5px;
+  /* width: 0px; */
+  color: white;
+  /* height: 30px; */
+  /* text-align: center; */
+  /* vertical-align: center; */
+  cursor: pointer;
+  display: inline-block;
+}
+
+.ButtonPrime:hover {
+  background: #95969c;
+}

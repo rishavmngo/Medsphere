@@ -1,0 +1,41 @@
+.Navbar-container .app-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px auto;
+}
+
+.Navbar-title {
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.Account {
+  display: flex;
+  align-items: center;
+}
+
+.Account-details {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.Account-pic {
+  height: 50px;
+  width: 50px;
+  background: black;
+  border-radius: 100%;
+  margin-right: 20px;
+  background-image: url(../../assets/rishav-pic.jpeg);
+  background-size: 100%;
+}
+.Account-name {
+  font-size: 1rem;
+  line-height: 10px;
+}
+.dropdown-btn {
+  font-size: 1rem;
+  line-height: 10px;
+}

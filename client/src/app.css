@@ -1,0 +1,26 @@
+:root {
+  --app-background-color-light: #fff1dc;
+}
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--app-background-color-light);
+  /* height: 100%; */
+}
+* {
+  box-sizing: border-box;
+
+  font-family: 'inter';
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+
+.app-container {
+  max-width: 95%;
+  margin: 0 auto;
+}
