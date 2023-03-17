@@ -1,0 +1,4 @@
+medsphere/client/node_modules/
+medsphere/server/node_modules/
+
+**/node_modules/
