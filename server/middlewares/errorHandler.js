@@ -1,14 +1,16 @@
 function programmerErrorHandler(error, req, res, next) {
+  console.error(error)
+
   if (error.isOperational) {
-    next(error)
+    return next(error)
   }
 
-  console.error(error)
-  res.status(error.statusCode).send('Internal server error')
+  return res.status(error.statusCode).send('Internal server error')
 }
 
 function operationalErrorHandler(error, req, res, next) {
-  res.status(error.statusCode).send(error)
+  const { isOperational, ...restError } = error
+  return res.status(error.statusCode).send(restError)
 }
 
 module.exports = { programmerErrorHandler, operationalErrorHandler }
