@@ -10,7 +10,6 @@ import { AuthContext } from '../../context/auth.context'
 const Sidebar = () => {
   const { user } = useContext(AuthContext)
 
-  console.log()
   return (
     <div className='sidebar-container'>
       <div className='RoutesList'>

@@ -1,21 +1,20 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import LeftSlideBar from '../../component/leftSlideBar/leftSlideBar.component'
 import './patients.style.css'
 const Patients = () => {
   const [somethingSlidebar, setSomethingSlidebar] = useState(false)
 
   function handleSlideBar() {
-    somethingSlidebar(true)
+    setSomethingSlidebar(!somethingSlidebar)
   }
   return (
     <div>
       Patients
       <button onClick={handleSlideBar}>toggle</button>
-      {somethingSlidebar && (
-        <LeftSlideBar>
-          <div>something</div>
-        </LeftSlideBar>
-      )}
+      <LeftSlideBar open={somethingSlidebar}>
+        <div>patients component</div>
+      </LeftSlideBar>
+      )
     </div>
   )
 }
