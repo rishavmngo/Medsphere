@@ -3,6 +3,7 @@ import './signin.styles.css'
 import InputField from '../inputField/inputField.component'
 import ButtonPrime from '../primary_btn/primary_btn.component'
 import './signin.styles.css'
+import { AuthContext } from '../../context/auth.context'
 
 const defaultFormFields = {
   email: '',
@@ -10,6 +11,7 @@ const defaultFormFields = {
 }
 
 const Login = ({ setIsLogin }) => {
+  const { login } = useContext(AuthContext)
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -18,13 +20,10 @@ const Login = ({ setIsLogin }) => {
     setFormFields({ ...formFields, [name]: value })
   }
   const handleSubmit = (e) => {
-    Login(email, password)
+    login(email, password)
     setFormFields(defaultFormFields)
   }
 
-  const goToRegisterPage = () => {
-    // toggleLoginPage(false)
-  }
   return (
     <div className='Login-Container'>
       <div className='inputs'>
