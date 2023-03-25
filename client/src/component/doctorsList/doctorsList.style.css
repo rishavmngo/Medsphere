@@ -1,8 +1,39 @@
-.doctorList-container {
-}
-
 .doctorList-container > .doctorList-table {
   font-size: 1.2rem;
+  border-radius: 15px 15px 15px 15px;
+}
+.doctorList-container {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #d0d0d0;
+  width: fit-content;
+  /* padding: 5px; */
+}
+table {
+  border-collapse: collapse;
+  /* border: 1px solid #d0d0d0; */
+  background: white;
+  border-radius: 10px;
+  cellpadding: 9;
+}
+td {
+  padding: 15px !important;
+}
+td {
+  /* text-align: center; */
+  border-collapse: separate;
+  border-spacing: 0 50px;
+  border-spacing: 5px;
+}
+
+thead {
+  /* border-bottom: 1px solid #d0d0d0; */
+  /* background: green; */
+  background: #f2f2f2;
+}
+
+.doctorList-row {
+  border: 1px solid #d0d0d0;
 }
 
 .doctorList-header {

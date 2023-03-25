@@ -11,8 +11,6 @@ const Dropdown = ({
   minWidth = '250px',
 }) => {
   const dropdownRef = useRef()
-  const [dropdownList, setDropdownList] = useState(values)
-  // const [currentItem, setCurrentItem] = useState(0)
   const [showDropDown, setDropDown] = useState(false)
   const currentItemStyle = {
     minWidth: minWidth,
@@ -35,7 +33,9 @@ const Dropdown = ({
   }, [dropdownRef])
 
   const handleClick = (event) => {
-    setCurrentItem(event.target.id)
+    const { id } = event.target
+    const value = event.target.dataset.value
+    setCurrentItem({ value, id: parseInt(id) })
     setDropDown(false)
   }
   return (
@@ -44,7 +44,7 @@ const Dropdown = ({
       onClick={() => setDropDown(!showDropDown)}
     >
       <div className='current-item' style={currentItemStyle}>
-        {dropdownList[currentItem]}
+        {currentItem.value}
       </div>
       <div className='dropdown-icon'>
         <FaChevronDown />
@@ -53,15 +53,16 @@ const Dropdown = ({
         ref={dropdownRef}
         className={`dropdown-list-container  ${showDropDown ? 'show' : ''}`}
       >
-        {dropdownList.map((item, index) => {
+        {values.map(({ id, name }) => {
           return (
             <div
-              key={index}
-              id={index}
+              key={id}
+              id={id}
+              data-value={name}
               className='dropdown-list-item'
               onClick={handleClick}
             >
-              {item}
+              {name}
             </div>
           )
         })}

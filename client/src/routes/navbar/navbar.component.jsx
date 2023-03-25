@@ -1,32 +1,45 @@
 import './navbar.style.css'
-import { IoIosArrowDown } from 'react-icons/io'
 import { BsChevronDown } from 'react-icons/bs'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
-import { useNavigate } from 'react-router-dom'
+import NavDropdown from '../../component/navDropDown/navDropDown.component'
 const Navbar = () => {
-  const navigate = useNavigate()
-  const { logout, user } = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const navRef = useRef()
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      const isAddPatientBtn = event.target.classList.contains('Account')
+      if (!isAddPatientBtn && !navRef.current.contains(event.target)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [navRef])
+
   return (
     <>
       <div className='Navbar-container'>
+        <NavDropdown logout={logout} show={dropdownOpen} innerRef={navRef} />
         <div className='app-container'>
           <div className='Navbar-title'>Medsphere</div>
-          <div className='Account'>
-            <div
-              className='Account-details'
-              onClick={() => {
-                logout()
-                navigate('/')
-              }}
-            >
+          <div
+            className='Account'
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <div className='Account-details'>
               <div className='Account-pic'></div>
               <div className='Account-name'>{`${
                 user.is_organisation ? '' : 'Dr. '
               } ${user.displayname}`}</div>
             </div>
             <div className='dropdown-btn'>
-              {/* <IoIosArrowDown /> */}
               <BsChevronDown />
             </div>
           </div>

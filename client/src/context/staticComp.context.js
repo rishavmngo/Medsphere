@@ -7,16 +7,7 @@ export const StaticCompContext = createContext({
 })
 
 const StaticCompProvider = ({ children }) => {
-  const [leftSlideBarOpen, setLeftSlideBar] = useState(false)
-  function toggleLeftSlideBar() {
-    setLeftSlideBar(!leftSlideBarOpen)
-  }
-
-  const values = {
-    leftSlideBarOpen,
-    toggleLeftSlideBar,
-    setLeftSlideBar,
-  }
+  const values = {}
   return (
     <StaticCompContext.Provider value={values}>
       {children}

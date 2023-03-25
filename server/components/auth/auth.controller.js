@@ -24,8 +24,16 @@ auth.login = async (req, res, next) => {
 }
 
 auth.register = async (req, res, next) => {
-  const { displayName, email, password, organisation_id, is_organisation } =
-    req.body
+  console.log(req.body)
+  const {
+    displayName,
+    email,
+    age,
+    password,
+    organisation_id,
+    is_organisation,
+    department_id,
+  } = req.body
 
   try {
     const userExists = await users.exists(email)
@@ -37,10 +45,12 @@ auth.register = async (req, res, next) => {
 
     const { data: user } = await users.add(
       displayName,
+      age,
       email,
       password,
       organisation_id,
-      is_organisation
+      is_organisation,
+      department_id
     )
 
     const token = createAccessToken(user.uid)

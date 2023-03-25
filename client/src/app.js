@@ -1,11 +1,5 @@
 import Dashboard from './routes/dashboard/dashboard.component'
-import {
-  Route,
-  Routes,
-  Navigate,
-  redirect,
-  useNavigate,
-} from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Patients from './routes/patients/patients.component'
 import Appointments from './routes/appointments/appointments.component'
 import History from './routes/history/history.component'

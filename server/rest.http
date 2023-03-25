@@ -40,3 +40,23 @@ Content-Type:application/json
 GET http://localhost:3000/users/getAllDoctors
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
 
+
+
+
+###
+
+GET http://localhost:3000/department/getAll
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
+
+
+###
+
+POST http://localhost:3000/department/add
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
+Content-Type:application/json
+
+{
+	"name": "department of cardiologist"
+}
+
+

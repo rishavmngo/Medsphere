@@ -10,6 +10,7 @@ import { FaUserPlus } from 'react-icons/fa'
 
 const defaultFormField = {
   displayName: '',
+  age: null,
   email: '',
   password: '',
   confirmPassword: '',
@@ -17,22 +18,42 @@ const defaultFormField = {
 const Manage = () => {
   const manageCompRef = useRef()
   const [formField, setFormField] = useState(defaultFormField)
-  const { registerDoctor } = useContext(AuthContext)
+  const { registerDoctor, getDepartment } = useContext(AuthContext)
   const [somethingSlidebar, setSomethingSlidebar] = useState(false)
-  const [currentDepartment, setCurrentDepartment] = useState(0)
-  const [currentEntity, setCurrentEntity] = useState(0)
+  const [department, setDepartment] = useState([])
+  const [currentDepartment, setCurrentDepartment] = useState({
+    value: '',
+    id: null,
+  })
 
-  const arrays = [
-    'department of physics',
-    'department of chemistry',
-    'department of mathematics',
+  const entity = [
+    { id: 0, name: 'Doctors' },
+    { id: 1, name: 'Patients' },
   ]
-  const entity = ['Doctors', 'Patients']
+  const [entities, setEntities] = useState(entity)
+
+  const [currentEntity, setCurrentEntity] = useState({
+    value: entities[0].name,
+    id: entities[0].id,
+  })
+
+  useEffect(() => {
+    async function fetchDepartment() {
+      const data = await getDepartment()
+      setDepartment(data)
+      setCurrentDepartment({ value: data[0].name, id: data[0].id })
+    }
+    fetchDepartment()
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event) {
       const isAddPatientBtn = event.target.classList.contains('addManager-btn')
-      if (!isAddPatientBtn && !manageCompRef.current.contains(event.target)) {
+      if (
+        manageCompRef.current &&
+        !isAddPatientBtn &&
+        !manageCompRef.current.contains(event.target)
+      ) {
         setSomethingSlidebar(false)
       }
     }
@@ -52,56 +73,75 @@ const Manage = () => {
     setFormField({ ...formField, [name]: value })
   }
   const handleSubmit = () => {
-    console.log(formField)
-    registerDoctor(formField)
+    registerDoctor({
+      ...formField,
+      department_id: parseInt(currentDepartment.id),
+    })
   }
   return (
     <div className='manage-container'>
       <Dropdown
-        values={entity}
-        currentItem={currentDepartment}
-        setCurrentItem={setCurrentDepartment}
+        values={entities}
+        currentItem={currentEntity}
+        setCurrentItem={setCurrentEntity}
         maxWidth={'70px'}
         minWidth={'70px'}
       />
-      <DoctorsList />
-      <button className='addManager-btn' onClick={() => handleSlider()}>
-        <span className='addManager-btn-icon'>
-          <FaUserPlus />
-        </span>
-        <span className='addManger-btn-label'>Add Doctors</span>
-      </button>
-      <div ref={manageCompRef}>
-        <LeftSlideBar open={somethingSlidebar}>
-          <div className='ManageSlidebar-container'>
-            <InputField
-              label='Disaplay Name'
-              name='displayName'
-              onChange={handleChange}
-            />
 
-            <InputField label='Email' name='email' onChange={handleChange} />
-            <InputField
-              label='Password'
-              name='password'
-              onChange={handleChange}
-            />
-            <InputField
-              label='Confirm password'
-              name='confirmPassword'
-              onChange={handleChange}
-            />
-            <Dropdown
-              values={arrays}
-              currentItem={currentDepartment}
-              setCurrentItem={setCurrentDepartment}
-            />
-            <div className='buttons-container'>
-              <ButtonPrime text='add' onClick={handleSubmit} />
+      {currentEntity.id === 0 && (
+        <div>
+          <DoctorsList />
+          <button className='addManager-btn' onClick={() => handleSlider()}>
+            <span className='addManager-btn-icon'>
+              <FaUserPlus />
+            </span>
+            <span className='addManger-btn-label'>Add Doctors</span>
+          </button>
+          <LeftSlideBar open={somethingSlidebar} innerRef={manageCompRef}>
+            <div className='ManageSlidebar-container'>
+              <InputField
+                label='Disaplay Name'
+                name='displayName'
+                onChange={handleChange}
+              />
+
+              <InputField label='Age' name='age' onChange={handleChange} />
+              <InputField label='Email' name='email' onChange={handleChange} />
+              <InputField
+                label='Password'
+                name='password'
+                onChange={handleChange}
+              />
+              <InputField
+                label='Confirm password'
+                name='confirmPassword'
+                onChange={handleChange}
+              />
+
+              <Dropdown
+                values={department}
+                currentItem={currentDepartment}
+                setCurrentItem={setCurrentDepartment}
+              />
+
+              <div className='buttons-container'>
+                <ButtonPrime text='add' onClick={handleSubmit} />
+              </div>
             </div>
-          </div>
-        </LeftSlideBar>
-      </div>
+          </LeftSlideBar>
+        </div>
+      )}
+
+      {currentEntity.id === 1 && (
+        <div>
+          <button className='addManager-btn' onClick={() => handleSlider()}>
+            <span className='addManager-btn-icon'>
+              <FaUserPlus />
+            </span>
+            <span className='addManger-btn-label'>Add Patients</span>
+          </button>
+        </div>
+      )}
     </div>
   )
 }

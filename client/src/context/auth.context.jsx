@@ -1,7 +1,5 @@
 import axios from 'axios'
 import { createContext, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { redirect } from 'react-router-dom'
 import {
   deleteTokenFromLocalStorage,
   getTokenFromLocalStorage,
@@ -19,11 +17,44 @@ export const AuthContext = createContext({
   registerDoctor: () => null,
   registerOrganisation: () => null,
   fetchDoctorsForOrg: () => null,
+  getDepartment: () => null,
+  department: [],
+  departmentMap: {},
 })
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [doctors, setDoctors] = useState([])
+  const [department, setDepartment] = useState([])
+  const [departmentMap, setDepartmentMap] = useState({})
+
+  const makeDepartmentMap = () => {
+    const map = {}
+    department.map((i) => {
+      map[i.id] = i
+    })
+    setDepartmentMap(map)
+  }
+
+  const getDepartment = async () => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3000/department/getAll',
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      if (!data) return []
+
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const getUserAndSetUser = async (token) => {
     try {
@@ -112,25 +143,34 @@ const AuthProvider = ({ children }) => {
         }
       )
 
-      setDoctors(data)
+      if (data.length !== doctors.length) {
+        setDoctors(data)
+      }
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function registerDoctor({ email, displayName, password }) {
+  async function registerDoctor({
+    email,
+    displayName,
+    password,
+    department_id,
+    age,
+  }) {
     try {
       const { data: token } = await axios.post(
         'http://localhost:3000/auth/register',
         {
           email,
           displayName,
+          age,
           password,
           is_organisation: false,
           organisation_id: user.uid,
+          department_id,
         }
       )
-      console.log(token)
       // const doctor = await getUserViaToken(token)
       await fetchDoctorsForOrg()
     } catch (error) {
@@ -154,6 +194,9 @@ const AuthProvider = ({ children }) => {
     fetchDoctorsForOrg,
     registerDoctor,
     setDoctors,
+    getDepartment,
+    department,
+    departmentMap,
   }
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }

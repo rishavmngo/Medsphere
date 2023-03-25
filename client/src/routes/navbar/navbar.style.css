@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   margin-right: 5px;
+  pointer-events: none;
 }
 
 .Account-pic {
@@ -30,10 +31,12 @@
   margin-right: 20px;
   background-image: url(../../assets/rishav-pic.jpeg);
   background-size: 100%;
+  pointer-events: none;
 }
 .Account-name {
   font-size: 1rem;
   line-height: 10px;
+  pointer-events: none;
 }
 .dropdown-btn {
   font-size: 1rem;

@@ -5,14 +5,16 @@ const users = {}
 
 users.add = async (
   displayName,
+  age,
   email,
   password,
   organisation_id,
-  is_organisation
+  is_organisation,
+  department_id
 ) => {
   const response = {}
   try {
-    const query = `INSERT INTO users(displayName,email,password,organisation_id,is_organisation) values($1,$2,$3,$4,$5) returning *`
+    const query = `INSERT INTO users(displayName,email,password,organisation_id,is_organisation,department_id,age) values($1,$2,$3,$4,$5,$6,$7) returning *`
 
     const { rows } = await db.query(query, [
       displayName,
@@ -20,6 +22,8 @@ users.add = async (
       password,
       organisation_id,
       is_organisation,
+      department_id,
+      age,
     ])
     response.data = rows[0]
     return response
@@ -69,7 +73,9 @@ users.exists = async (email) => {
 users.getAllDoctors = async (uid) => {
   const response = {}
   try {
-    const query = `SELECT * FROM users WHERE is_organisation=false and  organisation_id=$1`
+    const query = `select uid,displayname, email,age, d.name as department, is_organisation , organisation_id  from  users 
+left join department d 
+on d.id = users.department_id where organisation_id = $1`
 
     const { rows } = await db.query(query, [uid])
 

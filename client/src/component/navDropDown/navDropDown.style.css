@@ -1,0 +1,56 @@
+.NavDropdown-container {
+  position: absolute;
+  right: 50px;
+  top: 100px;
+  background: white;
+  width: 270px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: none;
+}
+
+.Navbar-container .show {
+  display: block;
+  animation-name: slide-down;
+  animation-duration: 0.3s;
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.NavDropdown-list-section {
+  border-top: 1px solid #d0d0d0;
+  padding: 10px 0px;
+}
+
+.NavDropdown-list-section:nth-child(1) {
+  border: none;
+}
+
+.NavDropdown-list-item {
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #363636;
+}
+
+.NavDropdown-list-item-icon {
+  margin-right: 10px;
+}
+
+.NavDropdown-list-item:hover {
+  background: #dfdfdf;
+}

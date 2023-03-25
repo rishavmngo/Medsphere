@@ -13,6 +13,8 @@ schema.registerSchema = joi.object({
   password: joi.string().required().min(8),
   organisation_id: joi.number().integer().positive().allow(null),
   is_organisation: joi.boolean().default(false),
+  department_id: joi.number().integer().positive().allow(null),
+  age: joi.number().integer().positive().required(),
 })
 
 module.exports = schema
