@@ -1,0 +1,79 @@
+.ManageTable-container > .ManageTable-inner {
+  font-size: 1.2rem;
+  border-radius: 15px 15px 15px 15px;
+}
+.ManageTable-container {
+  border-radius: 10px;
+  border: 1px solid #d0d0d0;
+  width: fit-content;
+}
+
+.table-row {
+  border: 1px solid #d0d0d0;
+}
+table {
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+}
+
+.table-header {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #737373;
+}
+td {
+  padding: 15px !important;
+}
+
+td {
+  /* text-align: center; */
+  border-collapse: separate;
+  border-spacing: 0 50px;
+  border-spacing: 5px;
+}
+
+thead {
+  background: #f2f2f2;
+}
+
+.table-data {
+  margin: 10px;
+  color: #2d2d2d;
+}
+.action-icons-row > * {
+  margin-right: 15px;
+}
+.table-row-action-icons {
+  color: #aaa6a6;
+  opacity: 0;
+  position: relative;
+}
+
+.action-icons-row:hover .table-row-action-icons {
+  opacity: 1;
+}
+.table-row-action-icons:hover {
+  color: gray;
+}
+
+.table-row-action-icons .tool-tip {
+  visibility: hidden;
+  position: absolute;
+  /* top: -70px; */
+  background: #726666;
+  padding: 5px;
+  z-index: 1;
+  text-align: center;
+  /* width: 120px; */
+  padding: 0px 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -35px;
+  border-radius: 10px;
+  color: white;
+}
+
+.table-row-action-icons:hover .tool-tip {
+  visibility: visible;
+}

@@ -7,6 +7,7 @@ import ButtonPrime from '../../component/primary_btn/primary_btn.component'
 import { AuthContext } from '../../context/auth.context'
 import './manage.styles.css'
 import { FaUserPlus } from 'react-icons/fa'
+import PatientsList from '../../component/patientsList/patientsList.component'
 
 const defaultFormField = {
   displayName: '',
@@ -16,10 +17,12 @@ const defaultFormField = {
   confirmPassword: '',
 }
 const Manage = () => {
-  const manageCompRef = useRef()
+  const doctorSliderRef = useRef()
+  const patientsSliderRef = useRef()
   const [formField, setFormField] = useState(defaultFormField)
   const { registerDoctor, getDepartment } = useContext(AuthContext)
-  const [somethingSlidebar, setSomethingSlidebar] = useState(false)
+  const [doctorsSlider, setDoctorsSlider] = useState(false)
+  const [patientsSlider, setPatientsSlider] = useState(false)
   const [department, setDepartment] = useState([])
   const [currentDepartment, setCurrentDepartment] = useState({
     value: '',
@@ -29,6 +32,7 @@ const Manage = () => {
   const entity = [
     { id: 0, name: 'Doctors' },
     { id: 1, name: 'Patients' },
+    { id: 3, name: 'department' },
   ]
   const [entities, setEntities] = useState(entity)
 
@@ -50,11 +54,17 @@ const Manage = () => {
     function handleClickOutside(event) {
       const isAddPatientBtn = event.target.classList.contains('addManager-btn')
       if (
-        manageCompRef.current &&
+        doctorSliderRef.current &&
         !isAddPatientBtn &&
-        !manageCompRef.current.contains(event.target)
+        !doctorSliderRef.current.contains(event.target)
       ) {
-        setSomethingSlidebar(false)
+        setDoctorsSlider(false)
+      } else if (
+        patientsSliderRef.current &&
+        !isAddPatientBtn &&
+        !patientsSliderRef.current.contains(event.target)
+      ) {
+        setPatientsSlider(false)
       }
     }
 
@@ -62,10 +72,14 @@ const Manage = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [manageCompRef])
+  }, [doctorSliderRef, patientsSliderRef])
 
-  function handleSlider() {
-    setSomethingSlidebar(true)
+  function handleDoctorSlider() {
+    setDoctorsSlider(true)
+  }
+
+  function handlePatientsSlide() {
+    setPatientsSlider(true)
   }
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -91,13 +105,16 @@ const Manage = () => {
       {currentEntity.id === 0 && (
         <div>
           <DoctorsList />
-          <button className='addManager-btn' onClick={() => handleSlider()}>
+          <button
+            className='addManager-btn'
+            onClick={() => handleDoctorSlider()}
+          >
             <span className='addManager-btn-icon'>
               <FaUserPlus />
             </span>
             <span className='addManger-btn-label'>Add Doctors</span>
           </button>
-          <LeftSlideBar open={somethingSlidebar} innerRef={manageCompRef}>
+          <LeftSlideBar open={doctorsSlider} innerRef={doctorSliderRef}>
             <div className='ManageSlidebar-container'>
               <InputField
                 label='Disaplay Name'
@@ -134,12 +151,19 @@ const Manage = () => {
 
       {currentEntity.id === 1 && (
         <div>
-          <button className='addManager-btn' onClick={() => handleSlider()}>
+          <PatientsList />
+          <button
+            className='addManager-btn'
+            onClick={() => handlePatientsSlide()}
+          >
             <span className='addManager-btn-icon'>
               <FaUserPlus />
             </span>
             <span className='addManger-btn-label'>Add Patients</span>
           </button>
+          <LeftSlideBar open={patientsSlider} innerRef={patientsSliderRef}>
+            <div>patients</div>
+          </LeftSlideBar>
         </div>
       )}
     </div>

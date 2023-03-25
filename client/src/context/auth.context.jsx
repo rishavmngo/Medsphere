@@ -20,6 +20,8 @@ export const AuthContext = createContext({
   getDepartment: () => null,
   department: [],
   departmentMap: {},
+  getPatientsForOrg: () => null,
+  patients: [],
 })
 
 const AuthProvider = ({ children }) => {
@@ -27,6 +29,7 @@ const AuthProvider = ({ children }) => {
   const [doctors, setDoctors] = useState([])
   const [department, setDepartment] = useState([])
   const [departmentMap, setDepartmentMap] = useState({})
+  const [patients, setPatients] = useState([])
 
   const makeDepartmentMap = () => {
     const map = {}
@@ -34,6 +37,26 @@ const AuthProvider = ({ children }) => {
       map[i.id] = i
     })
     setDepartmentMap(map)
+  }
+
+  const getPatientsForOrg = async () => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3000/patients/getAll',
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      if (!data) return
+
+      if (data.length !== patients.length) setPatients(data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const getDepartment = async () => {
@@ -197,6 +220,8 @@ const AuthProvider = ({ children }) => {
     getDepartment,
     department,
     departmentMap,
+    patients,
+    getPatientsForOrg,
   }
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }

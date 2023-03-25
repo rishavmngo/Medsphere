@@ -60,3 +60,22 @@ Content-Type:application/json
 }
 
 
+
+
+###
+
+GET http://localhost:3000/patients/getAll
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
+
+
+
+###
+POST http://localhost:3000/patients/add
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
+Content-Type:application/json
+
+{
+	"name": "robin",
+	"age": 34,
+	"gender": "m"
+	}

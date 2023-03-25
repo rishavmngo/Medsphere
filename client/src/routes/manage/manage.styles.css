@@ -1,3 +1,6 @@
+.manage-container > *:nth-child(1) {
+  margin-bottom: 40px;
+}
 .manage-container .dropdown-container {
   /* width: 300px; */
 }
