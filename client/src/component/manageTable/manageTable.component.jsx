@@ -1,7 +1,7 @@
 import './manageTable.style.css'
 import { FaTrash } from 'react-icons/fa'
 import { MdEdit } from 'react-icons/md'
-const ManageTable = ({ columns, bodyData, body, pkey }) => {
+const ManageTable = ({ columns, bodyData, body, pkey, Edit, Delete }) => {
   return (
     <div className='ManageTable-container'>
       <table className='ManageTable-inner'>
@@ -25,11 +25,17 @@ const ManageTable = ({ columns, bodyData, body, pkey }) => {
                   return <td>{row[columnName]}</td>
                 })}
                 <td className='action-icons-row'>
-                  <span className='table-row-action-icons'>
+                  <span
+                    className='table-row-action-icons'
+                    onClick={() => Edit()}
+                  >
                     <MdEdit />
                     <div className='tool-tip'>Edit</div>
                   </span>
-                  <span className='table-row-action-icons'>
+                  <span
+                    className='table-row-action-icons'
+                    onClick={() => Delete()}
+                  >
                     <div className='tool-tip'>Delete</div>
                     <FaTrash />
                   </span>

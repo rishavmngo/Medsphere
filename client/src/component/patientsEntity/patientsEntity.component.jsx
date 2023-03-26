@@ -1,21 +1,29 @@
 import PatientsList from '../patientsList/patientsList.component'
 import { FaUserPlus } from 'react-icons/fa'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import ButtonPrime from '../primary_btn/primary_btn.component'
 import InputField from '../inputField/inputField.component'
 import LeftSlideBar from '../leftSlideBar/leftSlideBar.component'
+import Dropdown from '../dropdown/dropdown.componet'
+import './patientsEntity.style.css'
+import { PatientsContext } from '../../context/patients.context'
 
 const defaultFormField = {
-  displayName: '',
+  name: '',
   age: null,
-  email: '',
-  password: '',
-  confirmPassword: '',
 }
 const PatientsEntity = () => {
   const patientsSliderRef = useRef()
   const [patientsSlider, setPatientsSlider] = useState(false)
   const [formField, setFormField] = useState(defaultFormField)
+  const gender = [
+    { id: 0, name: 'male' },
+    { id: 1, name: 'female' },
+    { id: 2, name: 'others' },
+  ]
+
+  const [genders, setGenders] = useState(gender)
+  const { addPatients } = useContext(PatientsContext)
   function handlePatientsSlide() {
     setPatientsSlider(true)
   }
@@ -38,15 +46,24 @@ const PatientsEntity = () => {
     }
   }, [patientsSliderRef])
 
-  const handleSubmit = () => {}
-
   const handleChange = (event) => {
     const { name, value } = event.target
 
     setFormField({ ...formField, [name]: value })
   }
+
+  const [currentGender, setCurrentGender] = useState({
+    value: genders[0].name,
+    id: genders[0].id,
+  })
+
+  const handleSubmit = () => {
+    addPatients({ ...formField, gender: currentGender.value })
+    setFormField(defaultFormField)
+    setPatientsSlider(false)
+  }
   return (
-    <div>
+    <div className='entityContainer'>
       <PatientsList />
 
       <button className='addManager-btn' onClick={() => handlePatientsSlide()}>
@@ -62,23 +79,18 @@ const PatientsEntity = () => {
         <div className='ManageSlidebar-container'>
           <InputField
             label='Disaplay Name'
-            name='displayName'
+            name='name'
             onChange={handleChange}
           />
 
           <InputField label='Age' name='age' onChange={handleChange} />
-          <InputField label='Email' name='email' onChange={handleChange} />
-          <InputField
-            label='Password'
-            name='password'
-            onChange={handleChange}
+          <Dropdown
+            values={genders}
+            currentItem={currentGender}
+            setCurrentItem={setCurrentGender}
+            maxWidth={'0px'}
+            minWidth={'0px'}
           />
-          <InputField
-            label='Confirm password'
-            name='confirmPassword'
-            onChange={handleChange}
-          />
-
           <div className='buttons-container'>
             <ButtonPrime text='add' onClick={handleSubmit} />
           </div>

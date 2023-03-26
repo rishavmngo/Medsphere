@@ -4,8 +4,6 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 
 
 ###
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MjM3NzQxfQ.jYDswV91eQQueYUZ4Bz0YraYyRUpFGfnZgoSAIAwZ8c
-
 
 
 
@@ -75,7 +73,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 Content-Type:application/json
 
 {
-	"name": "robin",
-	"age": 34,
+	"name": "rahul",
+	"age": 22,
 	"gender": "m"
 	}

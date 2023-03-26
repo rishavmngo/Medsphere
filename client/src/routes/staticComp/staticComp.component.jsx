@@ -6,8 +6,6 @@ import Navbar from '../navbar/navbar.component'
 import './staticComp.style.css'
 
 const StaticComp = () => {
-  // const { leftSlideBarOpen } = useContext(StaticCompContext)
-  const leftSlideBarOpen = true
   return (
     <div className='StaticComp-container'>
       <Navbar />

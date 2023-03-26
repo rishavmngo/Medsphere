@@ -6,6 +6,8 @@ import DoctorsList from '../doctorsList/doctorsList.component'
 import LeftSlideBar from '../leftSlideBar/leftSlideBar.component'
 import Dropdown from '../dropdown/dropdown.componet'
 import ButtonPrime from '../primary_btn/primary_btn.component'
+import { DoctorsContext } from '../../context/doctors.context'
+import { DepartmentContext } from '../../context/department.context'
 
 const defaultFormField = {
   displayName: '',
@@ -17,11 +19,12 @@ const defaultFormField = {
 const DoctorsEntity = () => {
   const doctorSliderRef = useRef()
 
+  const { getDepartment, users } = useContext(AuthContext)
+  const { registerDoctor } = useContext(DoctorsContext)
+  const { department, getAllDepartmentForOrg } = useContext(DepartmentContext)
+
   const [formField, setFormField] = useState(defaultFormField)
 
-  const { registerDoctor, getDepartment } = useContext(AuthContext)
-
-  const [department, setDepartment] = useState([])
   const [currentDepartment, setCurrentDepartment] = useState({
     value: '',
     id: null,
@@ -43,6 +46,7 @@ const DoctorsEntity = () => {
     registerDoctor({
       ...formField,
       department_id: parseInt(currentDepartment.id),
+      organisation_id: users.uid,
     })
   }
 
@@ -65,16 +69,16 @@ const DoctorsEntity = () => {
   }, [doctorSliderRef])
 
   useEffect(() => {
-    async function fetchDepartment() {
-      const data = await getDepartment()
-      setDepartment(data)
-      setCurrentDepartment({ value: data[0].name, id: data[0].id })
-    }
-    fetchDepartment()
+    getAllDepartmentForOrg()
   }, [])
 
+  useEffect(() => {
+    if (department.length === 0) return
+    setCurrentDepartment({ value: department[0].name, id: department[0].id })
+  }, [department])
+
   return (
-    <div>
+    <div className='entityContainer'>
       <DoctorsList />
       <button className='addManager-btn' onClick={() => handleDoctorSlider()}>
         <span className='addManager-btn-icon'>

@@ -45,6 +45,7 @@ const Dropdown = ({
     >
       <div className='current-item' style={currentItemStyle}>
         {currentItem.value}
+        {!currentItem.value && <span className='noItems'>No items</span>}
       </div>
       <div className='dropdown-icon'>
         <FaChevronDown />
@@ -66,6 +67,7 @@ const Dropdown = ({
             </div>
           )
         })}
+        {values.length < 1 && <span className='noItems'>No items</span>}
       </div>
     </div>
   )

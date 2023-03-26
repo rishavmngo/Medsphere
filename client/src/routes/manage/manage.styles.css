@@ -48,3 +48,8 @@
 .addManager-btn-icon {
   margin-right: 10px;
 }
+.entityContainer {
+}
+body {
+  overflow: hidden;
+}

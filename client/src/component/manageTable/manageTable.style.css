@@ -72,8 +72,13 @@ thead {
   top: -35px;
   border-radius: 10px;
   color: white;
+  user-select: none;
 }
 
 .table-row-action-icons:hover .tool-tip {
   visibility: visible;
+}
+
+.table-row-action-icons:active {
+  color: red;
 }

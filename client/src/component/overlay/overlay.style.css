@@ -1,0 +1,17 @@
+.overlayContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #00000033;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-msg-box {
+  background: white;
+  width: 400px;
+  height: 200px;
+}
