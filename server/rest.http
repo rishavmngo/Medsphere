@@ -73,7 +73,31 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 Content-Type:application/json
 
 {
-	"name": "rahul",
-	"age": 22,
-	"gender": "m"
+	"name": "rina",
+	"age": 21,
+	"gender": "f"
 	}
+
+
+
+###
+
+
+PUT http://localhost:3000/department/update
+Content-Type: application/json
+
+{
+		"name":"Department of physics"
+}
+
+
+####
+
+
+DELETE http://localhost:3000/department/delete
+Content-Type: application/json
+
+{
+		"id": 1
+}
+

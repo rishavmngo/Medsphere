@@ -1,0 +1,38 @@
+.overlay-children-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100px; */
+  /* width: 300px; */
+  padding: 20px;
+}
+
+.department-overlay-btn {
+  margin-left: 10px;
+  display: inline-block;
+  background: gray;
+  color: white;
+  padding: 5px;
+  border-radius: 7px;
+  width: 100px;
+  text-align: center;
+  border: 1px solid white;
+  user-select: none;
+  cursor: pointer;
+}
+.department-overlay-msg {
+  font-size: 1.2rem;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  color: #6a6464;
+}
+.btn-yes {
+  background: crimson;
+}
+
+.department-overlay-btn:hover {
+  background: none;
+  border: 1px solid black;
+  color: black;
+}

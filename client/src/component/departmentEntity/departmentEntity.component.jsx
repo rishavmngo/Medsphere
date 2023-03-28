@@ -17,9 +17,14 @@ const DepartmentEntity = () => {
   const departmentUpdateSliderRef = useRef()
   const [departmentSlider, setDepartmentSlider] = useState(false)
   const [departmentUpdateSlider, setDepartmentUpdateSlider] = useState(false)
-  const { addDepartment } = useContext(DepartmentContext)
+  const { addDepartment, deleteDepartment, updateDepartment } =
+    useContext(DepartmentContext)
   const [formField, setFormField] = useState(defaultFormField)
+  const [overlayOpen, setOverlayOpen] = useState(false)
+  const [itemToDelete, setItemToDelete] = useState(null)
+  const [itemToEdit, setItemToEdit] = useState(null)
   function handleDepartmentSlide() {
+    setFormField(defaultFormField)
     setDepartmentSlider(true)
   }
 
@@ -33,7 +38,8 @@ const DepartmentEntity = () => {
   }
 
   const handleUpdate = () => {
-    console.log(formField)
+    updateDepartment({ ...formField, id: itemToEdit.id })
+    setDepartmentUpdateSlider(false)
   }
 
   const handleChange = (event) => {
@@ -66,15 +72,51 @@ const DepartmentEntity = () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [departmentSliderRef, departmentUpdateSliderRef])
+  const handleConfirmation = () => {
+    deleteDepartment(itemToDelete)
+    setOverlayOpen(false)
+  }
+  const handleDelete = (item) => {
+    setItemToDelete(item)
+    setOverlayOpen(true)
+  }
+  const handleEdit = (item) => {
+    setItemToEdit(item)
+    const editedFormField = { ...formField, name: item.name }
+    console.log(editedFormField)
+    setFormField(editedFormField)
+    setDepartmentUpdateSlider(true)
+  }
 
   return (
     <div className='entityContainer'>
-      <Overlay>
-        <div>Are you sure?</div>
-        <button>yes</button>
-        <button>no</button>
-      </Overlay>
-      <DepartmentList Edit={handleDepartmentUpdateSlide} />
+      {overlayOpen && (
+        <Overlay>
+          <div className='overlay-children-container'>
+            <div className='department-overlay-msg'>
+              Want to delete {itemToDelete && itemToDelete.name}?
+            </div>
+            <div className='department-overlay-btns'>
+              <div
+                className='department-overlay-btn'
+                onClick={() => setOverlayOpen(false)}
+              >
+                No
+              </div>
+              <div
+                className='department-overlay-btn btn-yes'
+                onClick={handleConfirmation}
+              >
+                Yes
+              </div>
+            </div>
+          </div>
+        </Overlay>
+      )}
+      <DepartmentList
+        Edit={(item) => handleEdit(item)}
+        Delete={(item) => handleDelete(item)}
+      />
 
       <button
         className='addManager-btn'
@@ -94,6 +136,7 @@ const DepartmentEntity = () => {
             label='Department name'
             name='name'
             onChange={handleChange}
+            value={formField['name']}
           />
           <div className='buttons-container'>
             <ButtonPrime text='add' onClick={handleSubmit} />
@@ -110,6 +153,7 @@ const DepartmentEntity = () => {
             label='Department name'
             name='name'
             onChange={handleChange}
+            value={formField['name']}
           />
           <div className='buttons-container'>
             <ButtonPrime text='Update' onClick={handleUpdate} />

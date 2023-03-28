@@ -6,6 +6,8 @@ export const DepartmentContext = createContext({
   getAllDepartmentForOrg: () => null,
   department: [],
   addDepartment: () => null,
+  updateDepartment: () => null,
+  deleteDepartment: () => null,
 })
 
 const DepartmentProvider = ({ children }) => {
@@ -25,6 +27,7 @@ const DepartmentProvider = ({ children }) => {
       )
       if (!data) return []
       if (data.length !== department.length) setDepartment(data)
+      else if (data.length > 0) setDepartment(data)
     } catch (error) {
       console.error(error)
     }
@@ -52,10 +55,39 @@ const DepartmentProvider = ({ children }) => {
     }
   }
 
+  const updateDepartment = async ({ id, name }) => {
+    try {
+      const { data } = await axios.put(
+        'http://localhost:3000/department/update',
+        {
+          id,
+          name,
+        }
+      )
+
+      await getAllDepartmentForOrg()
+    } catch (error) {
+      console.error(error.response.data)
+    }
+  }
+
+  const deleteDepartment = async ({ id }) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3000/department/delete/${id}`
+      )
+
+      await getAllDepartmentForOrg()
+    } catch (error) {
+      console.error(error.response.data)
+    }
+  }
   const values = {
     department,
     getAllDepartmentForOrg,
     addDepartment,
+    updateDepartment,
+    deleteDepartment,
   }
   return (
     <DepartmentContext.Provider value={values}>

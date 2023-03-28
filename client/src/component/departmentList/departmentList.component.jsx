@@ -6,7 +6,7 @@ const DepartmentList = ({ Edit = () => null, Delete = () => null }) => {
   const { getAllDepartmentForOrg, department } = useContext(DepartmentContext)
   useEffect(() => {
     getAllDepartmentForOrg()
-  })
+  }, [])
   return (
     <ManageTable
       body={department}

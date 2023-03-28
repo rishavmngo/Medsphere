@@ -27,14 +27,14 @@ const ManageTable = ({ columns, bodyData, body, pkey, Edit, Delete }) => {
                 <td className='action-icons-row'>
                   <span
                     className='table-row-action-icons'
-                    onClick={() => Edit()}
+                    onClick={() => Edit(row)}
                   >
                     <MdEdit />
                     <div className='tool-tip'>Edit</div>
                   </span>
                   <span
                     className='table-row-action-icons'
-                    onClick={() => Delete()}
+                    onClick={() => Delete(row)}
                   >
                     <div className='tool-tip'>Delete</div>
                     <FaTrash />

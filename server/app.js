@@ -12,6 +12,7 @@ const patientsRoute = require('./components/patients/patients.route.js')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/auth', authRoute)
 app.use('/users', usersRoute)

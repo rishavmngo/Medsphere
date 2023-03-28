@@ -28,4 +28,29 @@ department.add = async (name, id) => {
     throw new AppError('Database Error', 500, error.message, false)
   }
 }
+
+department.update = async (name, id) => {
+  const query = 'UPDATE department set name=$1 WHERE id=$2 RETURNING *'
+  const response = {}
+
+  try {
+    const { rows } = await db.query(query, [name, id])
+    response.data = rows[0]
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 500, error.message, false)
+  }
+}
+department.delete = async (id) => {
+  const query = 'DELETE FROM department WHERE id=$1 returning * '
+  const response = {}
+
+  try {
+    const { rows } = await db.query(query, [id])
+    response.data = rows[0]
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 500, error.message, false)
+  }
+}
 module.exports = department

@@ -50,7 +50,6 @@ const DoctorsProvider = ({ children }) => {
         organisation_id,
         department_id,
       })
-      // const doctor = await getUserViaToken(token)
       await getDoctorsForOrg()
     } catch (error) {
       console.log(error)
