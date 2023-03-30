@@ -19,7 +19,7 @@ const defaultFormField = {
 const DoctorsEntity = () => {
   const doctorSliderRef = useRef()
 
-  const { getDepartment, users } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { registerDoctor } = useContext(DoctorsContext)
   const { department, getAllDepartmentForOrg } = useContext(DepartmentContext)
 
@@ -46,7 +46,7 @@ const DoctorsEntity = () => {
     registerDoctor({
       ...formField,
       department_id: parseInt(currentDepartment.id),
-      organisation_id: users.uid,
+      organisation_id: user.uid,
     })
   }
 

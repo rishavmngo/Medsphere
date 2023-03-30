@@ -1,0 +1,80 @@
+.AppointmentFilter-container {
+  display: flex;
+}
+.AppointmentFilter-container .DatePicker {
+  margin-left: 50px;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background: white;
+  user-select: none;
+  position: relative;
+}
+
+.AppointmentFilter-container .DatePicker .calender {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  border-radius: 10px;
+}
+.AppointmentFilter-container .DatePicker .DatePicker-label-text {
+  margin-right: 20px;
+}
+.AppointmentFilter-container .Dropdown {
+  position: relative;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background: white;
+  user-select: none;
+}
+
+.AppointmentFilter-container .Dropdown .Dropdown-list {
+  position: absolute;
+  background: white;
+  top: 50px;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.AppointmentFilter-container .Dropdown .Dropdown-list .Dropdown-list-item {
+  padding: 8px;
+  margin: 5px;
+  cursor: pointer;
+  color: #484545;
+}
+
+.AppointmentFilter-container
+  .Dropdown
+  .Dropdown-list
+  .Dropdown-list-item:hover {
+  background: #dfdfdf;
+  border-radius: 7px;
+}
+
+.AppointmentFilter-container .Dropdown .Dropdown-label {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+.AppointmentFilter-container .Dropdown .Dropdown-label .Dropdown-label-text {
+  margin-right: 20px;
+}
+
+.AppointmentFilter-container .Dropdown .Dropdown-label .Dropdown-label-icon {
+  transition: transform 0.1s linear;
+  display: inline-block;
+  padding-top: 2px;
+}
+
+.dropdownopen {
+  transform: rotate(180deg);
+  padding-top: 2px;
+}

@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
     try {
       const user = await getUserViaToken(token)
 
+      console.log(user)
       setUser(user)
     } catch (error) {
       console.log(error)
