@@ -44,8 +44,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 ###
 
 GET http://localhost:3000/department/getAll
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc5MzA5MTk4fQ.wDkkdq39e7v6QzGo2TWBspjWA73iuXef3pIl3mBW4do
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwMTE2MDU5fQ.QFpaIPTYTLVSe_esWnZ28VOwAWKCSqPtJF5VshRm3gA
 
 ###
 
@@ -100,4 +99,68 @@ Content-Type: application/json
 {
 		"id": 1
 }
+
+
+
+####
+
+POST http://localhost:3000/appointments/add
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+Content-Type: application/json
+
+{
+		"doctors_id": 15,
+		"patients_id": 4
+	}
+
+
+
+
+###
+
+
+
+GET http://localhost:3000/appointments/getAll
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+
+
+
+
+####
+
+POST http://localhost:3000/appointments/getAllByDate
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+Content-Type: application/json
+
+{
+	"date": "2023-03-28"
+	}
+
+
+###
+
+
+
+POST http://localhost:3000/appointments/getByDoctor
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+Content-Type: application/json
+
+{
+	"doctors_id": 15 
+	}
+
+
+
+####
+
+
+POST http://localhost:3000/appointments/getByDoctorAndDate
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+Content-Type: application/json
+
+{
+	"doctors_id": 15 ,
+	"date": "2023-03-28"
+	}
+
 

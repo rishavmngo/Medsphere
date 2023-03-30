@@ -15,10 +15,10 @@ jwtUtils.verify = (req, res, next) => {
     return next(new AppError('Unauthorized', 402, 'token not provided', true))
 
   try {
-    const { id } = jwt.verify(token, config.JWT_SECRET)
-    req.id = id
+    const resp = jwt.verify(token, config.JWT_SECRET)
+    req.id = resp.id
   } catch (error) {
-    req.id = null
+    return next(new AppError('Unauthorized', 402, error.message, true))
   }
   next()
 }
