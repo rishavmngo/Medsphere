@@ -1,8 +1,12 @@
+.AppointmentContainer {
+  width: fit-content;
+}
 .AppointmentFilter-container {
   display: flex;
+  justify-content: space-between;
 }
 .AppointmentFilter-container .DatePicker {
-  margin-left: 50px;
+  /* margin-left: 50px; */
   padding: 10px;
   border: 1px solid black;
   font-size: 1.2rem;
@@ -22,6 +26,7 @@
   margin-right: 20px;
 }
 .AppointmentFilter-container .Dropdown {
+  /* margin-right: 50px; */
   position: relative;
   padding: 10px;
   border: 1px solid black;

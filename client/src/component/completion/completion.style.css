@@ -1,0 +1,30 @@
+.completionContainer {
+  position: relative;
+}
+.suggestionContainer {
+  position: absolute;
+  top: 50px;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}
+.input__field:focus + .suggestionContainer {
+  background: red;
+}
+.suggestionList {
+  margin: 5px 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+.suggestionList:hover {
+  background: #dfdfdf;
+  border-radius: 10px;
+}
+.suggestionItem {
+  padding: 5px;
+}
+.suggestionItem:nth-child(2) {
+  color: gray;
+}

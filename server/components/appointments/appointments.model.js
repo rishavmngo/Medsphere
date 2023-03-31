@@ -112,7 +112,80 @@ where
   }
 }
 
+appointments.getByOrg = async (org_id, doctors_id) => {
+  const response = {}
+  const query = `select
+	appointments.id,
+	patients.name as patients_name,
+	patients.age,
+	users.displayname as doctors_name,
+	appointments."timestamp"
+from
+	appointments
+left join users on
+	appointments.doctors_id = users.uid
+left join patients on
+	appointments.patients_id = patients.id
+where
+	users.uid = $2
+	and appointments.id in
+(
+	select
+		appointments.id as doctors_id
+	from
+		appointments
+	where
+		org_id = $1)`
+
+  try {
+    const { rows } = await db.query(query, [org_id, doctors_id])
+
+    response.data = rows
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 appointments.getByDoctorAndDate = async (doctors_id, date) => {
+  const response = {}
+  const query = `select
+	appointments.id,
+	patients.name as patients_name,
+	patients.age,
+	users.displayname as doctors_name,
+	appointments."timestamp"
+from
+	appointments
+left join users on
+	appointments.doctors_id = users.uid
+left join patients on
+	appointments.patients_id = patients.id
+where
+	users.uid = $2
+	and
+	date(appointments."timestamp") = $3
+and appointments.id in
+(
+	select
+		appointments.id as doctors_id
+	from
+		appointments
+	where
+		org_id = $1)
+	`
+
+  try {
+    const { rows } = await db.query(query, [org_id, doctors_id, date])
+
+    console.log(rows)
+    response.data = rows
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+appointments.getByOrgDoctorAndDate = async (org_id, doctors_id, date) => {
   const response = {}
   const query = `select
 	appointments.id,
@@ -142,7 +215,6 @@ where
     throw new AppError('Database Error', 502, error.message, false)
   }
 }
-
 // appointments.getByUser = async () => {}
 //
 // appointments.getByUserAndDate = async () => {}

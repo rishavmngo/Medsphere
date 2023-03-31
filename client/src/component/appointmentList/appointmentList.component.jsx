@@ -4,22 +4,28 @@ import { AuthContext } from '../../context/auth.context'
 import ManageTable from '../manageTable/manageTable.component'
 import './appointmentList.style.css'
 
-const AppointmentList = ({ date }) => {
+const AppointmentList = ({ date, currentDropdownItem }) => {
   const {
     getAllAppointmentsByDate,
     appointments,
     getByDoctorAndDate,
     appointmentsMap,
+    getByOrgDoctorAndDate,
   } = useContext(AppointmentContext)
   const { user } = useContext(AuthContext)
 
   useEffect(() => {
     if (!user) return
-    if (user.is_organisation) getAllAppointmentsByDate(date)
-    else {
+    if (user.is_organisation && !currentDropdownItem) {
+      console.log('1')
+      getAllAppointmentsByDate(date)
+    } else if (!user.is_organisation) {
+      console.log('2')
       getByDoctorAndDate(date)
+    } else {
+      getByOrgDoctorAndDate(date, currentDropdownItem.id)
     }
-  }, [date, user])
+  }, [date, user, currentDropdownItem])
 
   return (
     <div>

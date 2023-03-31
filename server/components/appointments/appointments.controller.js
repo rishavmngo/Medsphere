@@ -47,6 +47,19 @@ appointments.getByDoctor = async (req, res) => {
   }
 }
 
+appointments.getByOrg = async (req, res) => {
+  const { doctors_id } = req.body
+  const org_id = req.id
+
+  try {
+    const { data } = await appointmentsDb.getByDoctor(org_id, doctors_id)
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
+
 appointments.getByDoctorAndDate = async (req, res, next) => {
   const { date } = req.body
 
@@ -63,4 +76,23 @@ appointments.getByDoctorAndDate = async (req, res, next) => {
   }
 }
 
+appointments.getByOrgDoctorAndDate = async (req, res, next) => {
+  const { date, doctor_id } = req.body
+
+  const org_id = req.id
+
+  console.log(date, org_id, doctor_id)
+
+  try {
+    const { data } = await appointmentsDb.getByOrgDoctorAndDate(
+      org_id,
+      doctor_id,
+      date
+    )
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = appointments

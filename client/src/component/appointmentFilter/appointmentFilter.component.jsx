@@ -5,8 +5,15 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { changeDateToIsoFormat } from '../../utils/dates.utils'
 import { Calendar } from 'react-calendar'
 import { AuthContext } from '../../context/auth.context'
-const AppointmentFilter = ({ date, setDate }) => {
+import { DoctorsContext } from '../../context/doctors.context'
+const AppointmentFilter = ({
+  date,
+  setDate,
+  currentDropdown,
+  handleDoctorsDropdown,
+}) => {
   const { user } = useContext(AuthContext)
+  const { getDoctorsForOrg, doctors } = useContext(DoctorsContext)
   const appointmentDropdownRef = useRef(null)
   const appointmentDatepickerRef = useRef(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -16,6 +23,10 @@ const AppointmentFilter = ({ date, setDate }) => {
   const onChange = (date) => {
     setDate(changeDateToIsoFormat(date))
   }
+
+  useEffect(() => {
+    getDoctorsForOrg()
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -49,7 +60,9 @@ const AppointmentFilter = ({ date, setDate }) => {
             className='Dropdown-label'
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            <span className='Dropdown-label-text'>All Doctors </span>
+            <span className='Dropdown-label-text'>
+              {currentDropdown ? 'Dr ' + currentDropdown.name : 'All Doctors'}
+            </span>
             <span
               className={`Dropdown-label-icon ${
                 dropdownOpen ? 'dropdownopen' : ''
@@ -60,10 +73,32 @@ const AppointmentFilter = ({ date, setDate }) => {
           </span>
           {dropdownOpen && (
             <div className='Dropdown-list' ref={appointmentDropdownRef}>
-              <span className='Dropdown-list-item'>All Doctors</span>
-              <span className='Dropdown-list-item'>Dr Utkarsh Yadav</span>
-              <span className='Dropdown-list-item'>Dr Sachin Chaubey</span>
-              <span className='Dropdown-list-item'>Dr Gaurav Mishra</span>
+              <span
+                className='Dropdown-list-item'
+                onClick={() => {
+                  handleDoctorsDropdown(null)
+                  setDropdownOpen(false)
+                }}
+              >
+                All Doctors
+              </span>
+              {doctors.map((doctor) => {
+                return (
+                  <span
+                    className='Dropdown-list-item'
+                    key={doctor.uid}
+                    onClick={() => {
+                      handleDoctorsDropdown({
+                        id: doctor.uid,
+                        name: doctor.displayname,
+                      })
+                      setDropdownOpen(false)
+                    }}
+                  >
+                    Dr {doctor.displayname}
+                  </span>
+                )
+              })}
             </div>
           )}
         </div>

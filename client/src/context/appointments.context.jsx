@@ -7,6 +7,7 @@ export const AppointmentContext = createContext({
   getAllAppointmentsByDate: () => null,
   getByDoctorAndDate: () => null,
   appointmentsMap: [],
+  getByOrgDoctorAndDate: () => null,
 })
 
 const AppointmentProvider = ({ children }) => {
@@ -69,11 +70,34 @@ const AppointmentProvider = ({ children }) => {
     }
   }
 
+  const getByOrgDoctorAndDate = async (date, doctor_id) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/appointments/getByOrgDoctorAndDate',
+        {
+          date,
+          doctor_id,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+
+      setAppointments(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const values = {
     appointments,
     getAllAppointmentsByDate,
     getByDoctorAndDate,
     appointmentsMap,
+    getByOrgDoctorAndDate,
   }
 
   return (
