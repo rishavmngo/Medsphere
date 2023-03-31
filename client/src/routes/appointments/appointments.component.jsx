@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import { Calendar } from 'react-calendar'
-import AppointmentEntity from '../../component/appointmentEntity/appointmentEntity.component'
 import AppointmentFilter from '../../component/appointmentFilter/appointmentFilter.component'
+import AppointmentList from '../../component/appointmentList/appointmentList.component'
 import { changeDateToIsoFormat } from '../../utils/dates.utils'
 import './appointments.style.css'
 const Appointments = () => {
+  const [date, setDate] = useState(changeDateToIsoFormat(new Date()))
   return (
     <div>
-      <AppointmentFilter />
+      <AppointmentFilter date={date} setDate={setDate} />
       <div className='calender-btn'></div>
-      <AppointmentEntity />
+      <AppointmentList date={date} />
     </div>
   )
 }

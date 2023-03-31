@@ -1,4 +1,6 @@
 import { useContext, useEffect } from 'react'
+import { FaTrash } from 'react-icons/fa'
+import { MdEdit } from 'react-icons/md'
 import { DepartmentContext } from '../../context/department.context'
 import ManageTable from '../manageTable/manageTable.component'
 
@@ -12,8 +14,10 @@ const DepartmentList = ({ Edit = () => null, Delete = () => null }) => {
       body={department}
       columns={['Department name']}
       bodyData={['name']}
-      Edit={Edit}
-      Delete={Delete}
+      actionArr={[
+        { name: 'Edit', icon: <MdEdit />, func: Edit },
+        { name: 'Delete', icon: <FaTrash />, func: Delete },
+      ]}
     />
   )
 }

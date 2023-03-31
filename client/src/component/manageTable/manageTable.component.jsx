@@ -1,7 +1,5 @@
 import './manageTable.style.css'
-import { FaTrash } from 'react-icons/fa'
-import { MdEdit } from 'react-icons/md'
-const ManageTable = ({ columns, bodyData, body, pkey, Edit, Delete }) => {
+const ManageTable = ({ columns, bodyData, body, pkey, actionArr = [] }) => {
   return (
     <div className='ManageTable-container'>
       <table className='ManageTable-inner'>
@@ -14,7 +12,7 @@ const ManageTable = ({ columns, bodyData, body, pkey, Edit, Delete }) => {
                 </td>
               )
             })}
-            <td>Actions</td>
+            {actionArr.length > 0 && <td>Actions</td>}
           </tr>
         </thead>
         {body.map((row) => {
@@ -24,22 +22,21 @@ const ManageTable = ({ columns, bodyData, body, pkey, Edit, Delete }) => {
                 {bodyData.map((columnName) => {
                   return <td>{row[columnName]}</td>
                 })}
-                <td className='action-icons-row'>
-                  <span
-                    className='table-row-action-icons'
-                    onClick={() => Edit(row)}
-                  >
-                    <MdEdit />
-                    <div className='tool-tip'>Edit</div>
-                  </span>
-                  <span
-                    className='table-row-action-icons'
-                    onClick={() => Delete(row)}
-                  >
-                    <div className='tool-tip'>Delete</div>
-                    <FaTrash />
-                  </span>
-                </td>
+                {actionArr.length > 0 && (
+                  <td className='action-icons-row'>
+                    {actionArr.map(({ func, icon, name }) => {
+                      return (
+                        <span
+                          className='table-row-action-icons'
+                          onClick={() => func(row)}
+                        >
+                          <div className='tool-tip'>{name}</div>
+                          {icon}
+                        </span>
+                      )
+                    })}
+                  </td>
+                )}
               </tr>
             </tbody>
           )
