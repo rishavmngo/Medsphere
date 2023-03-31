@@ -47,16 +47,15 @@ appointments.getByDoctor = async (req, res) => {
   }
 }
 
-appointments.getByDoctorAndDate = async (req, res) => {
-  const { doctors_id, date } = req.body
-  const org_id = req.id
+appointments.getByDoctorAndDate = async (req, res, next) => {
+  const { date } = req.body
+
+  const doctors_id = req.id
+
+  console.log(doctors_id, date)
 
   try {
-    const { data } = await appointmentsDb.getByDoctorAndDate(
-      org_id,
-      doctors_id,
-      date
-    )
+    const { data } = await appointmentsDb.getByDoctorAndDate(doctors_id, date)
 
     res.send(data)
   } catch (error) {

@@ -112,7 +112,7 @@ where
   }
 }
 
-appointments.getByDoctorAndDate = async (org_id, doctors_id, date) => {
+appointments.getByDoctorAndDate = async (doctors_id, date) => {
   const response = {}
   const query = `select
 	appointments.id,
@@ -127,21 +127,15 @@ left join users on
 left join patients on
 	appointments.patients_id = patients.id
 where
-	users.uid = $2
+	users.uid = $1
 	and
-	date(appointments."timestamp") = $3
-	and appointments.id in
-(
-	select
-		appointments.id as doctors_id
-	from
-		appointments
-	where
-		org_id = $1)`
+	date(appointments."timestamp") = $2
+	`
 
   try {
-    const { rows } = await db.query(query, [org_id, doctors_id, date])
+    const { rows } = await db.query(query, [doctors_id, date])
 
+    console.log(rows)
     response.data = rows
     return response
   } catch (error) {
