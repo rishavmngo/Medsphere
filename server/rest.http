@@ -164,3 +164,12 @@ Content-Type: application/json
 	}
 
 
+
+
+#####
+
+
+
+
+GET http://localhost:3000/users/has/phy
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw

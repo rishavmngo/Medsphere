@@ -76,7 +76,7 @@ const PatientsEntity = () => {
       </button>
 
       <LeftSlideBar open={patientsSlider} innerRef={patientsSliderRef}>
-        <div className='ManageSlidebar-container'>
+        <div className='ManageSlidebar-container patientsSliderContainer'>
           <InputField
             label='Disaplay Name'
             name='name'

@@ -3,3 +3,6 @@
 /*   display: flex; */
 /*   justify-content: center; */
 /* } */
+.patientsSliderContainer .dropdown-list-container {
+  width: 100px;
+}

@@ -25,4 +25,15 @@ patients.add = async (req, res, next) => {
   }
 }
 
+patients.getBySubstring = async (req, res, next) => {
+  const uid = req.id
+  const substring = req.params.substring
+
+  try {
+    const { data } = await patientsDb.getBySubstring(substring, uid)
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = patients

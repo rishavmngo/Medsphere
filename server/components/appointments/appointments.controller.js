@@ -65,8 +65,6 @@ appointments.getByDoctorAndDate = async (req, res, next) => {
 
   const doctors_id = req.id
 
-  console.log(doctors_id, date)
-
   try {
     const { data } = await appointmentsDb.getByDoctorAndDate(doctors_id, date)
 

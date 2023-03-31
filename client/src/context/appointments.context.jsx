@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createContext, useEffect, useState } from 'react'
+import { changeDateToIsoFormat } from '../utils/dates.utils'
 import { getTokenFromLocalStorage } from '../utils/localstorage'
 
 export const AppointmentContext = createContext({
@@ -8,6 +9,7 @@ export const AppointmentContext = createContext({
   getByDoctorAndDate: () => null,
   appointmentsMap: [],
   getByOrgDoctorAndDate: () => null,
+  addAppointment: () => null,
 })
 
 const AppointmentProvider = ({ children }) => {
@@ -62,7 +64,6 @@ const AppointmentProvider = ({ children }) => {
           },
         }
       )
-      console.log(data)
 
       setAppointments(data)
     } catch (error) {
@@ -70,6 +71,27 @@ const AppointmentProvider = ({ children }) => {
     }
   }
 
+  const addAppointment = async ({ doctors_id, patients_id }) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/appointments/add',
+        {
+          patients_id,
+          doctors_id,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      getAllAppointmentsByDate(changeDateToIsoFormat(new Date()))
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const getByOrgDoctorAndDate = async (date, doctor_id) => {
     const token = getTokenFromLocalStorage()
     if (!token) return
@@ -98,6 +120,7 @@ const AppointmentProvider = ({ children }) => {
     getByDoctorAndDate,
     appointmentsMap,
     getByOrgDoctorAndDate,
+    addAppointment,
   }
 
   return (

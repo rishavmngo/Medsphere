@@ -87,4 +87,21 @@ on d.id = users.department_id where organisation_id = $1`
   }
 }
 
+users.getBySubstring = async (substring, uid) => {
+  const response = {}
+
+  const query = {
+    text: 'select uid,displayname,department.name as departmentname,age from users left join department on users.department_id  = department.id  where is_organisation=false and LOWER(displayname) like $1 or LOWER(department.name) like $1 and users.organisation_id=$2',
+    values: [`%${substring.toLowerCase()}%`, uid],
+  }
+  try {
+    const { rows } = await db.query(query)
+
+    response.data = rows
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = users

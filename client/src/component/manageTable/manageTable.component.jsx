@@ -1,13 +1,14 @@
 import './manageTable.style.css'
+import { v4 } from 'uuid'
 const ManageTable = ({ columns, bodyData, body, pkey, actionArr = [] }) => {
   return (
     <div className='ManageTable-container'>
       <table className='ManageTable-inner'>
         <thead>
           <tr className='table-row table-header'>
-            {columns.map((column, index) => {
+            {columns.map((column) => {
               return (
-                <td key={index} className='table-heading'>
+                <td key={v4()} className='table-heading'>
                   {column}
                 </td>
               )
@@ -17,10 +18,10 @@ const ManageTable = ({ columns, bodyData, body, pkey, actionArr = [] }) => {
         </thead>
         {body.map((row) => {
           return (
-            <tbody key={row[pkey]}>
+            <tbody key={v4()}>
               <tr className='table-row table-data'>
                 {bodyData.map((columnName) => {
-                  return <td>{row[columnName]}</td>
+                  return <td key={v4()}>{row[columnName]}</td>
                 })}
                 {actionArr.length > 0 && (
                   <td className='action-icons-row'>
@@ -29,6 +30,7 @@ const ManageTable = ({ columns, bodyData, body, pkey, actionArr = [] }) => {
                         <span
                           className='table-row-action-icons'
                           onClick={() => func(row)}
+                          key={v4()}
                         >
                           <div className='tool-tip'>{name}</div>
                           {icon}

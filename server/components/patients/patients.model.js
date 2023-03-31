@@ -33,4 +33,21 @@ patients.add = async (name, age, gender, uid) => {
   }
 }
 
+patients.getBySubstring = async (substring, uid) => {
+  const response = {}
+
+  const query = {
+    text: 'select * from patients where org_id=$2 and lower(patients.name) like $1;',
+    values: [`%${substring.toLowerCase()}%`, uid],
+  }
+  try {
+    const { rows } = await db.query(query)
+
+    response.data = rows
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = patients
