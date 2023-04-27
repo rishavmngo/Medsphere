@@ -1,4 +1,7 @@
 import './navbar.style.css'
+
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import { BsChevronDown } from 'react-icons/bs'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
@@ -23,6 +26,16 @@ const Navbar = () => {
     }
   }, [navRef])
 
+  function Click() {
+    const input = document.getElementById('print')
+    console.log(input)
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF()
+      pdf.addImage(imgData, 'PNG', 0, 0)
+      pdf.save('download.pdf')
+    })
+  }
   return (
     <>
       <div className='Navbar-container'>

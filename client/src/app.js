@@ -9,6 +9,8 @@ import Authentication from './routes/authentication/authentication.component'
 import StaticComp from './routes/staticComp/staticComp.component'
 import { AuthContext } from './context/auth.context'
 import Manage from './routes/manage/manage.component'
+import FullScreen from './component/fullscreen/fullscreen.component'
+import Prescription from './component/prescription/prescription.component'
 
 function RequireAuth(Component, props) {
   const { user } = useContext(AuthContext)
@@ -63,6 +65,15 @@ const App = () => {
         <Route
           path='inventory'
           Component={() => RequireAuth(Inventory, { org: true })}
+        />
+        <Route
+          path='prescription'
+          // Component={() => RequireAuth(<FullScreen></FullScreen>, { org: true })}
+          element={
+            <FullScreen>
+              <Prescription />
+            </FullScreen>
+          }
         />
       </Route>
       <Route path='auth' element={<Authentication />} />

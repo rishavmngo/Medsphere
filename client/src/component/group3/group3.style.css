@@ -1,0 +1,19 @@
+.medicineTable {
+}
+.medicineTable-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+.medicineTable-footer {
+  height: 50px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+.medicine-data {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}

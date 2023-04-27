@@ -1,0 +1,40 @@
+.prescription {
+  size: 7in 9.25in;
+  margin: 27mm 16mm 27mm 16mm;
+  border: 1px solid black;
+}
+.groups {
+  font-size: 1.8rem;
+}
+.group1 {
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  border-bottom: 1px solid black;
+  padding: 25px;
+}
+.group1 > * {
+  /* margin: 25px; */
+}
+.DoctorsDetail--details > * {
+  margin: 10px 0px;
+}
+.org-details > * {
+  margin: 10px 0px;
+}
+.DoctorName,
+.OrgName {
+  color: #e64040;
+}
+.group2 {
+  padding: 25px;
+}
+.PatientsDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.ColumnOne > * {
+  margin: 5px 0px;
+}
+.value {
+  color: #2f2f2f;
+}
