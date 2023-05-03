@@ -59,6 +59,7 @@ const Appointments = () => {
 
   const handleChangeDoctors = (event) => {
     const { value } = event.target
+    console.log('value', value)
     setDoctorsInputValue(value)
     if (value === '') {
       setDoctorsArr([])

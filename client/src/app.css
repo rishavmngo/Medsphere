@@ -27,3 +27,10 @@ a {
 .noItems {
   color: #c3c3c3;
 }
+.spinner {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

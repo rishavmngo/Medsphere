@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
 
     try {
       await getUserAndSetUser(token)
+      console.log(token)
     } catch (error) {
       console.log(error)
     }

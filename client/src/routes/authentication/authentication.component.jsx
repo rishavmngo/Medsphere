@@ -1,9 +1,17 @@
 import './authentication.style.css'
 import Register from '../../component/register/register.component.jsx'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Login from '../../component/signin/signin.component'
+import { AuthContext } from '../../context/auth.context'
+import { Navigate } from 'react-router-dom'
 const Authentication = () => {
   const [isLogin, setIsLogin] = useState(true)
+  // const { user } = useContext(AuthContext)
+
+  // if (user) {
+  //   return <Navigate to='/' />
+  // }
+
   return (
     <div className='Authentication-page'>
       <div className='Authentication-container'>
