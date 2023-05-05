@@ -102,7 +102,7 @@ const AppointmentProvider = ({ children }) => {
     const token = getTokenFromLocalStorage()
     if (!token) return
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `http://localhost:3000/appointments/update/${appointmentId}`,
         {
           patients_id,

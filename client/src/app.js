@@ -136,7 +136,7 @@ const Kpp = () => {
         <Route path='/patients' element={<Patients />} />
         <Route path='/history' element={<History />} />
         <Route
-          path='/prescription'
+          path='/prescription/:prescriptionId'
           element={
             <FullScreen>
               <Prescription />

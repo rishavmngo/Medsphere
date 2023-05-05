@@ -7,6 +7,7 @@ import DoctorsProvider from './context/doctors.context'
 import DepartmentProvider from './context/department.context'
 import AppointmentProvider from './context/appointments.context'
 import MedicineProvider from './context/inventory.context'
+import PrescriptionProvider from './context/prescription.context'
 
 const root = ReactDom.createRoot(document.getElementById('root'))
 
@@ -17,9 +18,11 @@ root.render(
         <DepartmentProvider>
           <AppointmentProvider>
             <MedicineProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
+              <PrescriptionProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </PrescriptionProvider>
             </MedicineProvider>
           </AppointmentProvider>
         </DepartmentProvider>

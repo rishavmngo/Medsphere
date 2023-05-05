@@ -7,6 +7,7 @@ import { BsCalendarCheck } from 'react-icons/bs'
 import { BsFillClipboardCheckFill } from 'react-icons/bs'
 import './appointmentList.style.css'
 import { useNavigate } from 'react-router-dom'
+import { PrescriptionContext } from '../../context/prescription.context'
 
 const AppointmentList = ({
   date,
@@ -24,6 +25,7 @@ const AppointmentList = ({
   } = useContext(AppointmentContext)
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
+  const { createPrescription } = useContext(PrescriptionContext)
   useEffect(() => {
     if (!user) return
     if (user.is_organisation && !currentDropdownItem) {
@@ -34,6 +36,15 @@ const AppointmentList = ({
       getByOrgDoctorAndDate(date, currentDropdownItem.id)
     }
   }, [date, user, currentDropdownItem])
+
+  async function fetchUpdateData(item) {
+    try {
+      const { id } = await createPrescription(item.id)
+      navigate(`/prescription/${id}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div>
@@ -52,9 +63,7 @@ const AppointmentList = ({
           {
             name: 'Prescription',
             icon: <BsFillClipboardCheckFill />,
-            func: () => {
-              navigate('/prescription')
-            },
+            func: fetchUpdateData,
           },
         ]}
       />

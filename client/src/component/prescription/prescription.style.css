@@ -24,6 +24,7 @@
 .DoctorName,
 .OrgName {
   color: #e64040;
+  text-transform: capitalize;
 }
 .group2 {
   padding: 25px;
