@@ -90,14 +90,8 @@ on d.id = users.department_id where organisation_id = $1`
 users.getBySubstring = async (substring, uid) => {
   const response = {}
 
-  const query1 = {
-    text: 'select uid,displayname,department.name as departmentname,age from users left join department on users.department_id  = department.id  where is_organisation=false and LOWER(displayname) like $1 or LOWER(department.name) like $1 and users.organisation_id=$2',
-    text1:
-      'select displayname,email,department.name,organisation_id  from users left join department on users.department_id = department.id where users.is_organisation  = false and users.organisation_id = $2 and lower(displayname) like $1;',
-    values: [`%${substring.toLowerCase()}%`, uid],
-  }
   const query = {
-    text: 'select displayname,email,department.name as departmentname,organisation_id  from users left join department on users.department_id = department.id where users.is_organisation  = false and users.organisation_id = $2 and (lower(displayname) like $1 or lower(department."name")like $1);',
+    text: 'select uid,displayname,email,department.name as departmentname,organisation_id  from users left join department on users.department_id = department.id where users.is_organisation  = false and users.organisation_id = $2 and (lower(displayname) like $1 or lower(department."name")like $1);',
     values: [`%${substring.toLowerCase()}%`, uid],
   }
   try {

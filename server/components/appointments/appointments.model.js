@@ -15,6 +15,36 @@ appointments.add = async (patients_id, doctors_id, org_id) => {
     throw new AppError('Database Error', 502, error.message, false)
   }
 }
+
+appointments.update = async (
+  org_id,
+  appointmentId,
+  doctors_id,
+  patients_id
+) => {
+  console.log(org_id, appointmentId, doctors_id, patients_id)
+  const response = {}
+  const query = {
+    text: `Update appointments set patients_id = $1,doctors_id = $2 ,timestamp=now() where id=$3 and org_id=$4 returning *`,
+    values: [patients_id, doctors_id, appointmentId, org_id],
+  }
+
+  // console.log(
+  //   typeof patients_id,
+  //   typeof doctors_id,
+  //   typeof appointmentId,
+  //   typeof org_id
+  // )
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+    if (rows.length < 1)
+      throw new AppError('Databse Error', 502, "Can't able to update", false)
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 appointments.getAll = async (org_id) => {
   const response = {}
   const query = `select

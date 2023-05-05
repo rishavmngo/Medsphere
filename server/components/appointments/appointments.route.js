@@ -17,5 +17,10 @@ router.post(
   jwt.verify,
   appointments.getByOrgDoctorAndDate
 )
+router.put(
+  '/update/:appointmentId',
+  jwt.verify,
+  appointments.updateAppointmentsById
+)
 
 module.exports = router

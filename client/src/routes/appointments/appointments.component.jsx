@@ -23,7 +23,7 @@ const Appointments = () => {
   const appointmentSliderRef = useRef()
   const appointmentUpdateSliderRef = useRef()
   const { user } = useContext(AuthContext)
-  const { addAppointment } = useContext(AppointmentContext)
+  const { addAppointment, updateAppointment } = useContext(AppointmentContext)
   const [date, setDate] = useState(changeDateToIsoFormat(new Date()))
   const [currentDoctorDropdown, setCurrentDoctorDropdown] = useState(null)
   const [appointmentSlider, setAppointmentSlider] = useState(false)
@@ -34,10 +34,15 @@ const Appointments = () => {
   const [doctorsArr, setDoctorsArr] = useState([])
   const [patientsArr, setPatientsArr] = useState([])
   const [overlayOpen, setOverlayOpen] = useState(false)
+  const [itemToUpdate, setItemToUpdate] = useState(null)
 
   const handleSubmit = () => {
     addAppointment(appointmentForm)
     setAppointmentSlider(false)
+  }
+  const handleUpdateSubmit = () => {
+    updateAppointment({ ...appointmentForm, appointmentId: itemToUpdate.id })
+    setAppointmentUpdateSlider(false)
   }
 
   const handleDoctorFetch = useCallback(
@@ -59,7 +64,6 @@ const Appointments = () => {
 
   const handleChangeDoctors = (event) => {
     const { value } = event.target
-    console.log('value', value)
     setDoctorsInputValue(value)
     if (value === '') {
       setDoctorsArr([])
@@ -96,13 +100,13 @@ const Appointments = () => {
   }
 
   const handleDone = (item) => {
-    console.log(item)
     setOverlayOpen(true)
   }
   const handleUpdate = (item) => {
     const { patients_name, doctors_name } = item
     setDoctorsInputValue(doctors_name)
     setPatientsInputValue(patients_name)
+    setItemToUpdate(item)
     setAppointmentUpdateSlider(true)
   }
   useEffect(() => {
@@ -187,7 +191,7 @@ const Appointments = () => {
             />
 
             <div className='Appointments-add-btn'>
-              <ButtonPrime text='Update' onClick={handleSubmit} />
+              <ButtonPrime text='Update' onClick={handleUpdateSubmit} />
             </div>
           </div>
         </LeftSlideBar>

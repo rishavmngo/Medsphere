@@ -27,6 +27,8 @@
 .input__field:not(:placeholder-shown) + .input__label {
   transform: translate(0, -155%) scale(0.8);
   background: white;
+  /* backdrop-filter: blur(100px); */
+  border-radius: 8px;
   padding: 0px 5px;
   margin: 0px;
   transition: transform 120ms ease-in;

@@ -27,10 +27,8 @@ const AppointmentList = ({
   useEffect(() => {
     if (!user) return
     if (user.is_organisation && !currentDropdownItem) {
-      console.log('1')
       getAllAppointmentsByDate(date)
     } else if (!user.is_organisation) {
-      console.log('2')
       getByDoctorAndDate(date)
     } else {
       getByOrgDoctorAndDate(date, currentDropdownItem.id)

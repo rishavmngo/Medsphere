@@ -26,6 +26,7 @@ const Completion = ({
       {data.length > 0 && openSuggestionContainer && (
         <div className='suggestionContainer'>
           {data.map((item) => {
+            console.log(extractData.key1, item[extractData.key2])
             return (
               <div
                 key={item[extractData.key2]}

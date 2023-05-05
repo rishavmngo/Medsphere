@@ -10,10 +10,6 @@ const PatientsList = () => {
     getPatientsForOrg()
   }, [])
 
-  function som() {
-    console.log('hello from new actions')
-  }
-
   return (
     <ManageTable
       body={patients}

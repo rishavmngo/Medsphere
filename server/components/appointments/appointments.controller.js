@@ -93,4 +93,24 @@ appointments.getByOrgDoctorAndDate = async (req, res, next) => {
     next(new AppError('Internal server error', 502, error.message, false))
   }
 }
+
+appointments.updateAppointmentsById = async (req, res, next) => {
+  const { patients_id, doctors_id } = req.body
+
+  const org_id = req.id
+  const appointmentId = parseInt(req.params.appointmentId)
+
+  try {
+    const { data } = await appointmentsDb.update(
+      org_id,
+      appointmentId,
+      doctors_id,
+      patients_id
+    )
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = appointments

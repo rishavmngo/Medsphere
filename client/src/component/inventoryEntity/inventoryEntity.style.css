@@ -1,0 +1,101 @@
+.inventory-overlay {
+  position: absolute;
+  /* background: white; */
+  border: 1px solid #cfcfcf;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 100px;
+  border-radius: 10px;
+  backdrop-filter: blur(30px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.overlay-inventory-grid {
+  display: grid;
+  grid-template-columns: auto;
+  /* grid-gap: 10px; */
+}
+.overlay-inventory-grid div {
+  /* margin: 10px 0px; */
+  /* display: grid; */
+}
+.inventory-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #f57474;
+  position: absolute;
+  left: 30px;
+  top: 40px;
+  text-transform: capitalize;
+}
+
+.overlay-inventory-grid div div {
+  margin: 10px 0px;
+}
+.inventory-button {
+  border: 1px solid #f57474;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  background: #f57474;
+  color: white;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.inventory-button:hover {
+  background: none;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+}
+.DeleteOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: gray; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.DeleteContainer {
+  border: 1px solid black;
+  padding: 15px 35px;
+  border-radius: 8px;
+  backdrop-filter: blur(30px);
+}
+.DeleteContainer__buttons {
+  text-align: center;
+}
+.DeleteContainer__buttons div {
+  display: inline-block;
+  margin: 5px 10px;
+  margin-top: 20px;
+  border: 1px solid black;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+.DeleteContainer__buttons--yes {
+  background: black;
+  color: white;
+}
+
+.DeleteContainer__buttons--yes:hover {
+  background: white;
+  color: black;
+}
+.DeleteContainer__buttons--no {
+}
+.DeleteContainer--title {
+  font-size: 2.1rem;
+}
+
+.DeleteContainer__buttons--no:hover {
+  background: white;
+}
