@@ -16,4 +16,4 @@ CREATE TABLE public.patients (
 
 -- public.patients foreign keys
 
-ALTER TABLE public.patients ADD CONSTRAINT fk_organisation FOREIGN KEY (org_id) REFERENCES public.users(uid);
+ALTER TABLE public.patients ADD CONSTRAINT fk_organisation FOREIGN KEY (org_id) REFERENCES public.users(uid) on delete cascade;
