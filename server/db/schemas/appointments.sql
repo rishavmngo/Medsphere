@@ -17,6 +17,6 @@ CREATE TABLE public.appointments (
 
 -- public.appointments foreign keys
 
-ALTER TABLE public.appointments ADD CONSTRAINT fk_doctors_doctors_id FOREIGN KEY (doctors_id) REFERENCES public.users(uid);
-ALTER TABLE public.appointments ADD CONSTRAINT fk_patients_patients_id FOREIGN KEY (patients_id) REFERENCES public.patients(id);
-ALTER TABLE public.appointments ADD CONSTRAINT fk_users_org_id FOREIGN KEY (org_id) REFERENCES public.users(uid);
+ALTER TABLE public.appointments ADD CONSTRAINT fk_doctors_doctors_id FOREIGN KEY (doctors_id) REFERENCES public.users(uid)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE public.appointments ADD CONSTRAINT fk_patients_patients_id FOREIGN KEY (patients_id) REFERENCES public.patients(id)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE public.appointments ADD CONSTRAINT fk_users_org_id FOREIGN KEY (org_id) REFERENCES public.users(uid)  ON DELETE CASCADE ON UPDATE CASCADE;
