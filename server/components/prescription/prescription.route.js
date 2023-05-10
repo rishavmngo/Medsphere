@@ -15,6 +15,11 @@ router.get(
   prescription.getByAppointmentId
 )
 
+router.get(
+  '/prescribedMedicine/getAll/:prescriptionId',
+  prescription.getAllPrescribedMedicine
+)
+
 //medicine boy
 // router.post('/medicine/add', prescription.addMedicine)
 // router.get('/medicine/getAll', prescription.addMedicine)

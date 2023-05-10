@@ -10,18 +10,17 @@ function Group1({ data }) {
   } = data
   return (
     <div className='group1'>
-      <div className='DoctorsDetail'>
+      <div className='DoctorsDetail group1-nest'>
         <div className='DoctorsDetail--details'>
           <h1 className='DoctorName'>Dr. {doctors_name}</h1>
           <div>{doctors_qualifications}</div>
           <div>{doctors_department}</div>
-          {/* <div>REG NO. 1232423</div> */}
         </div>
       </div>
-      <div className='org-logo'>
+      <div className='org-logo group1-nest'>
         <OrgLogo />
       </div>
-      <div className='org-details'>
+      <div className='org-details group1-nest'>
         <h1 className='OrgName'>{organisation_name}</h1>
         <div>{organisation_address}</div>
         <div>Ph: {organisation_phone_number} | 18003456</div>

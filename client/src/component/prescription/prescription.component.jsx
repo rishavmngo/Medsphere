@@ -16,13 +16,9 @@ function Prescription() {
   return (
     <div className='prescription'>
       <div className='groups'>
-        {console.log(currentPrescription)}
-        {/* <p>{currentPrescription.patients_name}</p> */}
-        {/* <p>{currentPrescription.gender}</p> */}
-        {/* <p>{currentPrescription.doctors_name}</p> */}
         <Group1 data={currentPrescription} />
         <Group2 data={currentPrescription} />
-        {/* <Group3 data={currentPrescription} /> */}
+        <Group3 data={currentPrescription} />
       </div>
     </div>
   )

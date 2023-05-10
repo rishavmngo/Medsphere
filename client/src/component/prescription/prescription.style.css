@@ -12,14 +12,21 @@
   border-bottom: 1px solid black;
   padding: 25px;
 }
-.group1 > * {
+.group1 .group1-nest {
   /* margin: 25px; */
+  /* background: red; */
 }
 .DoctorsDetail--details > * {
   margin: 10px 0px;
 }
 .org-details > * {
   margin: 10px 0px;
+  /* margin-left: auto; */
+  display: flex;
+  justify-content: flex-end;
+}
+.org-logo {
+  text-align: center;
 }
 .DoctorName,
 .OrgName {

@@ -40,4 +40,16 @@ prescription.getByAppointmentId = async (req, res, next) => {
   }
 }
 
+prescription.getAllPrescribedMedicine = async (req, res, next) => {
+  const prescriptionId = req.params.prescriptionId
+
+  try {
+    const response = await prescriptionDb.getAllPrescribedMedicine(
+      prescriptionId
+    )
+    res.send(response.data)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
 module.exports = prescription

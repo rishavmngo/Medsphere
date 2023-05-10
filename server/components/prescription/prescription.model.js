@@ -29,6 +29,8 @@ prescription.getById = async (prescriptionId) => {
 	p2.name as patients_name,
 	p2.age as patients_age,
 	p2.gender as patients_gender,
+  p2.address as patients_address,
+  p2.blood_group as patients_blood_group,
 	d.uid as doctors_id,
 	d.displayname as doctors_name,
 	d.qualifications as doctors_qualifications,
@@ -72,6 +74,36 @@ prescription.getByAppointmentId = async (appointmentId) => {
   try {
     const { rows } = await db.query(query)
     response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.getAllPrescribedMedicine = async (prescriptionId) => {
+  const response = {}
+  const query = {
+    text: `
+select
+	pm.id as id,
+	pm.dosage as dosage,
+	pm.duration as duration,
+	m.brand_name as name ,
+	m.generic as generic_name,
+	m.dosageform as dosage_form
+from
+	prescribed_medicine pm
+left join medicine m on
+	m.id = pm.medicine_id
+where
+	pm.prescription_id = $1;
+		`,
+    values: [prescriptionId],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows
 
     return response
   } catch (error) {

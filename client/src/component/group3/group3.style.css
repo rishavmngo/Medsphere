@@ -1,11 +1,12 @@
 .medicineTable {
+  padding: 25px;
 }
 .medicineTable-head {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* padding: 25px; */
+  /* border-top: 2px solid black; */
+  /* border-bottom: 2px solid black; */
 }
 .medicineTable-footer {
   height: 50px;
@@ -13,7 +14,16 @@
   border-bottom: 2px solid black;
 }
 .medicine-data {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* padding: 25px; */
+  margin: 20px 0px;
+}
+
+.medicineTable-head,
+.insertPrescribedMedicine,
+.medicine-data {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 2fr 1fr 1fr;
 }

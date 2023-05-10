@@ -6,10 +6,13 @@ export const PrescriptionContext = createContext({
   currentPrescription: {},
   getPrescrcriptionById: () => null,
   createPrescription: () => null,
+  getPrescribedMedicine: () => null,
+  prescribedMedicine: [],
 })
 
 const PrescriptionProvider = ({ children }) => {
   const [currentPrescription, setCurrentPrescription] = useState({})
+  const [prescribedMedicine, setPrescribedMedicine] = useState([])
 
   const getPrescrcriptionById = async (prescriptionId) => {
     const token = getTokenFromLocalStorage()
@@ -50,11 +53,30 @@ const PrescriptionProvider = ({ children }) => {
       console.error(error)
     }
   }
+  const getPrescribedMedicine = async (byPrescriptionId) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/prescription/prescribedMedicine/getAll/${byPrescriptionId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      setPrescribedMedicine(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const values = {
     getPrescrcriptionById,
     currentPrescription,
     createPrescription,
+    getPrescribedMedicine,
+    prescribedMedicine,
   }
   return (
     <PrescriptionContext.Provider value={values}>

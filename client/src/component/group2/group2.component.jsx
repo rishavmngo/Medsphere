@@ -6,6 +6,7 @@ function Group2({ data }) {
     timestamp,
     patients_age,
     patients_address,
+    patients_blood_group,
   } = data
 
   const date = new Date(timestamp)
@@ -35,6 +36,11 @@ function Group2({ data }) {
           <div className='TodayDate'>
             <span className='key'>Date: </span>
             <span className='value'>{localFormat}</span>
+          </div>
+
+          <div className='PatientsBloodgroup'>
+            <span className='key'>Blood group: </span>
+            <span className='value'>{patients_blood_group}</span>
           </div>
         </div>
       </div>

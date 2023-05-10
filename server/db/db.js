@@ -9,6 +9,11 @@ const pool = new Pool({
   port: config.DB_PORT,
 })
 
+// pool.query('Drop Database medsphere;', (err, res) => {
+//   console.log(err, res)
+//   pool.end()
+// })
+
 // pool.connect((err, client, done) => {
 //   if (err) throw new AppError('Databse Error', 502, err.message, false)
 //   client.query(
@@ -24,6 +29,4 @@ const pool = new Pool({
 //       // console.log('Table created successfully')
 //     }
 //   )
-// })
-
 module.exports = pool
