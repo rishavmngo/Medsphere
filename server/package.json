@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --delay 500ms .",
+    "start": "node server.js",
     "migrate": "node-pg-migrate"
   },
   "keywords": [],

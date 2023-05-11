@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=medsphere
+    volumes:
+      - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '3555:5432'
+  web:
+    build: ./server
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+  medsphere_frontend:
+    build: ./client
+    restart: always
+    ports:
+      - 3001:3000
+    depends_on:
+      - web

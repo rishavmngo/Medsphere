@@ -1,4 +1,5 @@
 medsphere/client/node_modules/
 medsphere/server/node_modules/
+pgdata
 
 **/node_modules/

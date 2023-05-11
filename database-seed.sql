@@ -1,9 +1,4 @@
-/* eslint-disable camelcase */
 
-exports.shorthands = undefined
-
-exports.up = (pgm) => {
-  pgm.sql(`
 CREATE TABLE public.users (
 	uid serial4 NOT NULL,
 	displayname varchar(100) NOT NULL,
@@ -112,7 +107,3 @@ ALTER TABLE public.prescribed_medicine ADD CONSTRAINT prescribed_medicine_medici
 ALTER TABLE public.prescribed_medicine ADD CONSTRAINT prescribed_medicine_prescription_id_constraint FOREIGN KEY (prescription_id) REFERENCES public.prescription(id) ON DELETE CASCADE;
 
 ALTER TABLE public.prescribed_advice ADD CONSTRAINT prescribed_advice_prescription_id_constraint FOREIGN KEY (prescription_id) REFERENCES public.prescription(id) ON DELETE CASCADE;
-	`)
-}
-
-exports.down = (pgm) => {}
