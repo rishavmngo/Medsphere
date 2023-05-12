@@ -8,6 +8,7 @@ export const PrescriptionContext = createContext({
   createPrescription: () => null,
   getPrescribedMedicine: () => null,
   prescribedMedicine: [],
+  getPrescribedMedicineBySubstring: () => null,
 })
 
 const PrescriptionProvider = ({ children }) => {
@@ -58,7 +59,48 @@ const PrescriptionProvider = ({ children }) => {
     if (!token) return
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/prescription/prescribedMedicine/getAll/${byPrescriptionId}`,
+        `http://localhost:3000/prescription/medicine/getAll/${byPrescriptionId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      setPrescribedMedicine(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const getPrescribedMedicineBySubstring = async (substring) => {
+    if (substring.length <= 0) return []
+    // return []
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/inventory/medicine/has/${substring}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const addPrescriptionMedicine = async (medToAdd) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3000/prescription/medicine/getAll/${byPrescriptionId}`,
+        {
+          id: medToAdd.id,
+        },
         {
           headers: {
             Authorization: `bearer ${token}`,
@@ -77,6 +119,7 @@ const PrescriptionProvider = ({ children }) => {
     createPrescription,
     getPrescribedMedicine,
     prescribedMedicine,
+    getPrescribedMedicineBySubstring,
   }
   return (
     <PrescriptionContext.Provider value={values}>
