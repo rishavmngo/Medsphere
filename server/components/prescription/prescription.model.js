@@ -81,23 +81,124 @@ prescription.getByAppointmentId = async (appointmentId) => {
   }
 }
 
-prescription.getAllPrescribedMedicine = async (prescriptionId) => {
+prescription.addMedicineToPrescription = async (
+  prescriptionId,
+  medicine_id,
+  dosage,
+  duration
+) => {
+  const response = {}
+  const query = {
+    text: `
+insert
+	into
+	prescribed_medicine(prescription_id,
+	medicine_id,
+	dosage,
+	duration)
+values($1,
+$2,
+$3,
+$4) returning *
+		`,
+    values: [prescriptionId, medicine_id, dosage, duration],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+// prescription.getPrescribedMedicine = async (prescriptionId) => {
+//   const response = {}
+//   const query = {
+//     text: `
+// select
+// 	pm.id as prescribed_medicine_id,
+// 	m.brand_name as medicine_name,
+// 	m.dosageform as dosageform,
+// 	m.generic as generic_name ,
+// 	pm.dosage as dosage,
+// 	pm.duration as duration
+// from
+// 	prescribed_medicine pm
+// left join medicine m on
+// 	pm.medicine_id = m.id
+// where
+// 	pm.prescription_id = $1
+// 		`,
+//     values: [prescriptionId],
+//   }
+//   try {
+//     const { rows } = await db.query(query)
+//     response.data = rows
+//
+//     return response
+//   } catch (error) {
+//     throw new AppError('Database Error', 502, error.message, false)
+//   }
+// }
+//
+prescription.updatePrescribedMedicine = async (
+  prescriptionMedicineId,
+  prescriptionId,
+  medicine_id,
+  dosage,
+  duration
+) => {
+  const response = {}
+  const query = {
+    text: `
+update
+	prescribed_medicine
+set
+	prescription_id = $2,
+	medicine_id = $3,
+	dosage = $4,
+	duration = $5 
+where
+	id = $1
+returning *
+		`,
+    values: [
+      prescriptionMedicineId,
+      prescriptionId,
+      medicine_id,
+      dosage,
+      duration,
+    ],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.getPrescribedMedicine = async (prescriptionId) => {
   const response = {}
   const query = {
     text: `
 select
-	pm.id as id,
+	pm.id as prescribed_medicine_id,
+	m.brand_name as medicine_name,
+	m.dosageform as dosageform,
+	m.generic as generic_name ,
 	pm.dosage as dosage,
-	pm.duration as duration,
-	m.brand_name as name ,
-	m.generic as generic_name,
-	m.dosageform as dosage_form
+	pm.duration as duration
 from
 	prescribed_medicine pm
 left join medicine m on
-	m.id = pm.medicine_id
+	pm.medicine_id = m.id
 where
-	pm.prescription_id = $1;
+	pm.prescription_id = $1 
 		`,
     values: [prescriptionId],
   }
@@ -108,6 +209,32 @@ where
     return response
   } catch (error) {
     throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.deletePrescriptionById = async (id) => {
+  const response = {}
+  const query = {
+    text: `
+    delete from prescribed_medicine where id = $1 returning *
+		`,
+    values: [id],
+  }
+  try {
+    const { rows } = await db.query(query)
+    if (rows.length <= 0) {
+      response.error = {
+        statusCode: 204,
+        message: "Entity does't exists",
+      }
+    }
+
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    if (error.statusCode === 204)
+      throw new AppError('Database Error', 502, error.message, false)
   }
 }
 module.exports = prescription

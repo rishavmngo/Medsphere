@@ -111,7 +111,7 @@ Content-Type: application/json
 {
 		"doctors_id": 15,
 		"patients_id": 4
-	}
+}
 
 
 
@@ -134,7 +134,7 @@ Content-Type: application/json
 
 {
 	"date": "2023-03-28"
-	}
+}
 
 
 ###
@@ -147,7 +147,7 @@ Content-Type: application/json
 
 {
 	"doctors_id": 15 
-	}
+}
 
 
 
@@ -161,7 +161,7 @@ Content-Type: application/json
 {
 	"doctors_id": 15 ,
 	"date": "2023-03-28"
-	}
+}
 
 
 
@@ -173,3 +173,54 @@ Content-Type: application/json
 
 GET http://localhost:3000/users/has/phy
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgwMDkwNzcwfQ.AxGdLCPaw-S-1DUa_tdQTRni_rtoja86RJe_NLa1Skw
+
+
+
+
+
+
+###
+GET http://localhost:3000/prescription/medicine/getAll/7
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzMjcxMDA2fQ.Ft-qIFgszRVjjCVJeJyJagFoIAmSLJpJj-o_Bi3StBQ
+
+
+###
+
+
+POST http://localhost:3000/prescription/medicine/add/7
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzMjcxMDA2fQ.Ft-qIFgszRVjjCVJeJyJagFoIAmSLJpJj-o_Bi3StBQ
+Content-Type:application/json
+
+{
+"medicine_id": 10625,
+"dosage": "1 day 1 night",
+"duration": "10 days"
+}
+
+PUT http://localhost:3000/prescription/medicine/update/7
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzMjcxMDA2fQ.Ft-qIFgszRVjjCVJeJyJagFoIAmSLJpJj-o_Bi3StBQ
+Content-Type:application/json
+
+{
+	"id": 4,
+"medicine_id": 10631,
+"dosage": "2 day 1 night",
+"duration": "0 days"
+}
+
+DELETE http://localhost:3000/prescription/medicine/delete/5
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzMjcxMDA2fQ.Ft-qIFgszRVjjCVJeJyJagFoIAmSLJpJj-o_Bi3StBQ
+
+
+GET http://localhost:3000/inventory/medicine/has/re
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgzOTExMjkzfQ.m6OCaBqLrfJYpbES-7YJKQq4ckYpZgqZg8baFWTQNLQ
+
+
+
+GET http://localhost:3000/prescription/prescribedMedicine/getAll/8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+
+
+GET http://localhost:3000/prescription/medicine/getAll/8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk

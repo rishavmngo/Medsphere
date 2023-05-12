@@ -16,12 +16,23 @@ router.get(
 )
 
 router.get(
-  '/prescribedMedicine/getAll/:prescriptionId',
+  '/medicine/getAll/:prescriptionId',
+  jwt.verify,
   prescription.getAllPrescribedMedicine
 )
-
-//medicine boy
-// router.post('/medicine/add', prescription.addMedicine)
-// router.get('/medicine/getAll', prescription.addMedicine)
-// router.put('/medicine/update', prescription.addMedicine)
+router.post(
+  '/medicine/add/:prescriptionId',
+  jwt.verify,
+  prescription.addMedicine
+)
+router.put(
+  '/medicine/update/:prescriptionId',
+  jwt.verify,
+  prescription.updatePrescribedMedicine
+)
+router.delete(
+  '/medicine/delete/:prescribedMedicineId',
+  jwt.verify,
+  prescription.deletePrescriptionById
+)
 module.exports = router

@@ -40,14 +40,64 @@ prescription.getByAppointmentId = async (req, res, next) => {
   }
 }
 
+prescription.addMedicine = async (req, res, next) => {
+  const prescriptionId = req.params.prescriptionId
+
+  const { medicine_id, dosage, duration } = req.body
+
+  try {
+    const response = await prescriptionDb.addMedicineToPrescription(
+      prescriptionId,
+      medicine_id,
+      dosage,
+      duration
+    )
+    res.send(response.data)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
+
 prescription.getAllPrescribedMedicine = async (req, res, next) => {
   const prescriptionId = req.params.prescriptionId
 
   try {
-    const response = await prescriptionDb.getAllPrescribedMedicine(
-      prescriptionId
+    const response = await prescriptionDb.getPrescribedMedicine(prescriptionId)
+    res.send(response.data)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
+
+prescription.updatePrescribedMedicine = async (req, res, next) => {
+  const prescriptionId = req.params.prescriptionId
+
+  const { id, medicine_id, dosage, duration } = req.body
+
+  try {
+    const response = await prescriptionDb.updatePrescribedMedicine(
+      id,
+      prescriptionId,
+      medicine_id,
+      dosage,
+      duration
     )
     res.send(response.data)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
+
+prescription.deletePrescriptionById = async (req, res, next) => {
+  const id = req.params.prescribedMedicineId
+
+  try {
+    const response = await prescriptionDb.deletePrescriptionById(id)
+    if (response.error)
+      return next(
+        new AppError('Internal server error', 404, response.error.message, true)
+      )
+    else res.send(response.data)
   } catch (error) {
     next(new AppError('Internal sever error', 500, error.message, false))
   }
