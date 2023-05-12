@@ -23,10 +23,9 @@ function Group3({ data }) {
 
         <div className='medicineTable-body'>
           <PrescribedMedicineList prescribedMedicine={prescribedMedicine} />
-        </div>
-        <div className='medicineTable-footer'>
           <InsertPrescribedMedicine />
         </div>
+        {/* <div className='medicineTable-footer'></div> */}
       </div>
     </div>
   )

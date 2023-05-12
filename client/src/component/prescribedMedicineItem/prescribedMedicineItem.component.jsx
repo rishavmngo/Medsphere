@@ -1,10 +1,11 @@
 import './prescribedMedicineItem.style.css'
 const PrescribedMedicineItem = ({ med }) => {
-  const { dosage, dosage_form, duration, name } = med
+  console.log(med)
+  const { dosage, dosageform, duration, medicine_name } = med
   return (
     <div className='medicine-data'>
       <span className='medicineName'>
-        {name}-{dosage_form}
+        {medicine_name} - {dosageform}
       </span>
       <span className='medicineDosage'>{dosage}</span>
       <span className='medicineDuration'>{duration}</span>

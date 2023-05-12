@@ -21,7 +21,6 @@
 }
 
 .medicineTable-head,
-.insertPrescribedMedicine,
 .medicine-data {
   display: grid;
   grid-gap: 10px;
