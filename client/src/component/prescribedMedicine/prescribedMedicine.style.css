@@ -1,30 +1,55 @@
 .insertPrescribedMedicine {
-  /* height: 100%; */
   height: 30px;
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   position: relative;
+  grid-gap: 10px;
 }
 .medicine-input-component input {
   height: 100%;
   width: 100%;
+  border-radius: 7px;
+  padding: 5px;
 }
 .manual-dosage input {
   height: 100%;
   width: 100%;
+  border-radius: 7px;
+  padding: 5px;
+}
+.duration-btns {
+  position: relative;
 }
 .add-medicine {
-  --size: 27px;
+  --size: 49px;
   width: var(--size);
   position: absolute;
-  right: calc(var(--size) * -1);
   height: 100%;
+  bottom: 0;
+  left: 70px;
+  top: 6px;
+  font-size: 1.2rem;
+}
+.add-medicine {
+  border: 1px solid crimson;
+  color: white;
+  background: crimson;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.add-medicine:hover {
+  color: black;
+  background: white;
+  border-radius: 7px;
 }
 
+.add-medicine:active {
+  background: #dd657c;
+  color: white;
+}
 .duration-component input,
 .duration-component select {
-  /* display: flex; */
   height: 100%;
 }
 .medicine-input-component {
@@ -39,9 +64,7 @@
   overflow-y: auto;
   border: 1px solid black;
   background: white;
-  /* padding: 10px; */
   border-radius: 10px;
-  /* overflow: hidden; */
 }
 
 .medicineList__completion::-webkit-scrollbar {
@@ -69,7 +92,6 @@
 .medicineList__item:hover {
   background: #2222;
   border-radius: 10px;
-  /* color: white; */
 }
 
 .completion__dosageform {

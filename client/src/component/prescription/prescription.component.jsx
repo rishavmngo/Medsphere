@@ -6,6 +6,8 @@ import { useContext, useEffect } from 'react'
 import { PrescriptionContext } from '../../context/prescription.context'
 import { useParams } from 'react-router-dom'
 import { parseInt } from 'lodash'
+import printDocument from '../../utils/pdf'
+
 function Prescription() {
   const { currentPrescription, getPrescrcriptionById } =
     useContext(PrescriptionContext)
@@ -13,14 +15,23 @@ function Prescription() {
   useEffect(() => {
     getPrescrcriptionById(parseInt(prescriptionId))
   }, [])
+
+  const handleExport = () => {
+    const input = document.getElementById('prescription')
+    printDocument(input)
+  }
+
   return (
-    <div className='prescription'>
-      <div className='groups'>
-        <Group1 data={currentPrescription} />
-        <Group2 data={currentPrescription} />
-        <Group3 data={currentPrescription} />
+    <>
+      <button onClick={handleExport}>print</button>
+      <div id='prescription' className='prescription'>
+        <div className='groups'>
+          <Group1 data={currentPrescription} />
+          <Group2 data={currentPrescription} />
+          <Group3 data={currentPrescription} prescriptionId={prescriptionId} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

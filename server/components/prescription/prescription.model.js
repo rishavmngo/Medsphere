@@ -237,4 +237,99 @@ prescription.deletePrescriptionById = async (id) => {
       throw new AppError('Database Error', 502, error.message, false)
   }
 }
+
+prescription.getAllPrescribedAdvices = async (prescriptionId) => {
+  const response = {}
+  const query = {
+    text: `
+select
+ *
+from
+	prescribed_advice pa
+where
+	pa.prescription_id = $1 
+		`,
+    values: [prescriptionId],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.addAdviceToPrescription = async (prescriptionId, advice) => {
+  const response = {}
+  const query = {
+    text: `
+insert
+	into
+	prescribed_advice(prescription_id,advice)
+  values($1,$2) 
+returning *
+		`,
+    values: [prescriptionId, advice],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.updatePrescribedAdvice = async (
+  prescriptionId,
+  prescribedAdviceId,
+  advice
+) => {
+  const response = {}
+  const query = {
+    text: `
+UPDATE
+	prescribed_advice
+set
+	advice = $3
+where id = $2 and prescription_id = $1
+returning *
+		`,
+    values: [prescriptionId, prescribedAdviceId, advice],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.deletePrescribedAdviceById = async (prescribedAdviceId) => {
+  const response = {}
+  const query = {
+    text: `
+DELETE
+From
+	prescribed_advice
+WHERE
+	id = $1
+returning *
+		`,
+    values: [prescribedAdviceId],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = prescription

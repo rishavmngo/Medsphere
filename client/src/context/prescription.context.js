@@ -9,11 +9,17 @@ export const PrescriptionContext = createContext({
   getPrescribedMedicine: () => null,
   prescribedMedicine: [],
   getPrescribedMedicineBySubstring: () => null,
+  addPrescriptionMedicine: () => null,
+  prescribedAdvice: [],
+  getPrescribedAdvice: () => null,
+  addPrescribedAdvice: () => null,
+  deletePrescribedAdvice: () => null,
 })
 
 const PrescriptionProvider = ({ children }) => {
   const [currentPrescription, setCurrentPrescription] = useState({})
   const [prescribedMedicine, setPrescribedMedicine] = useState([])
+  const [prescribedAdvice, setPrescribedAdvice] = useState([])
 
   const getPrescrcriptionById = async (prescriptionId) => {
     const token = getTokenFromLocalStorage()
@@ -54,6 +60,7 @@ const PrescriptionProvider = ({ children }) => {
       console.error(error)
     }
   }
+
   const getPrescribedMedicine = async (byPrescriptionId) => {
     const token = getTokenFromLocalStorage()
     if (!token) return
@@ -92,14 +99,18 @@ const PrescriptionProvider = ({ children }) => {
     }
   }
 
-  const addPrescriptionMedicine = async (medToAdd) => {
+  const addPrescriptionMedicine = async (medToAdd, byPrescriptionId) => {
+    // console.log(medToAdd, byPrescriptionId)
+    const duration = medToAdd.duration + ' ' + medToAdd.durationUnit
     const token = getTokenFromLocalStorage()
     if (!token) return
     try {
       const { data } = await axios.post(
-        `http://localhost:3000/prescription/medicine/getAll/${byPrescriptionId}`,
+        `http://localhost:3000/prescription/medicine/add/${byPrescriptionId}`,
         {
-          id: medToAdd.id,
+          medicine_id: medToAdd.id,
+          dosage: medToAdd.dosage,
+          duration: duration,
         },
         {
           headers: {
@@ -107,7 +118,67 @@ const PrescriptionProvider = ({ children }) => {
           },
         }
       )
-      setPrescribedMedicine(data)
+      await getPrescribedMedicine(byPrescriptionId)
+      // setPrescribedMedicine(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const getPrescribedAdvice = async (byPrescriptionId) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/prescription/advice/getAll/${byPrescriptionId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      setPrescribedAdvice(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const addPrescribedAdvice = async (prescriptionId, advice) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3000/prescription/advice/add/${prescriptionId}`,
+        {
+          advice: advice,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      await getPrescribedAdvice(prescriptionId)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const deletePrescribedAdvice = async (
+    prescriptionAdviceId,
+    prescriptionId
+  ) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3000/prescription/advice/delete/${prescriptionAdviceId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      await getPrescribedAdvice(prescriptionId)
     } catch (error) {
       console.error(error)
     }
@@ -120,7 +191,13 @@ const PrescriptionProvider = ({ children }) => {
     getPrescribedMedicine,
     prescribedMedicine,
     getPrescribedMedicineBySubstring,
+    addPrescriptionMedicine,
+    getPrescribedAdvice,
+    prescribedAdvice,
+    addPrescribedAdvice,
+    deletePrescribedAdvice,
   }
+
   return (
     <PrescriptionContext.Provider value={values}>
       {children}

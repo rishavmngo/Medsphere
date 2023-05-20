@@ -15,6 +15,7 @@ router.get(
   prescription.getByAppointmentId
 )
 
+//medicine
 router.get(
   '/medicine/getAll/:prescriptionId',
   jwt.verify,
@@ -34,5 +35,31 @@ router.delete(
   '/medicine/delete/:prescribedMedicineId',
   jwt.verify,
   prescription.deletePrescriptionById
+)
+
+//Advice
+
+router.get(
+  '/advice/getAll/:prescriptionId',
+  jwt.verify,
+  prescription.getAllPrescribedAdvices
+)
+
+router.post(
+  '/advice/add/:prescriptionId',
+  jwt.verify,
+  prescription.addPrescribedAdvice
+)
+
+router.put(
+  '/advice/update/:prescriptionId',
+  jwt.verify,
+  prescription.updatePrescribedAdvice
+)
+
+router.delete(
+  '/advice/Delete/:PrescribedAdviceId',
+  jwt.verify,
+  prescription.deletePrescribedAdviceById
 )
 module.exports = router

@@ -1,6 +1,5 @@
 import './prescribedMedicineItem.style.css'
 const PrescribedMedicineItem = ({ med }) => {
-  console.log(med)
   const { dosage, dosageform, duration, medicine_name } = med
   return (
     <div className='medicine-data'>

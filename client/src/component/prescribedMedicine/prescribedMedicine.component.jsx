@@ -11,11 +11,12 @@ const defaultMedicine = {
   durationUnit: 'days',
 }
 
-const InsertPrescribedMedicine = () => {
+const InsertPrescribedMedicine = ({ prescriptionId }) => {
   const [medicine, setMedicine] = useState('')
   const [type, setMedicineType] = useState('')
   const [medicineList, setMedicineList] = useState([])
-  const { getPrescribedMedicineBySubstring } = useContext(PrescriptionContext)
+  const { getPrescribedMedicineBySubstring, addPrescriptionMedicine } =
+    useContext(PrescriptionContext)
   const [inputActive, setInputActive] = useState(true)
   const [currentMedicineToAdd, setCurrentMedicineToAdd] =
     useState(defaultMedicine)
@@ -43,7 +44,7 @@ const InsertPrescribedMedicine = () => {
   }, [currentMedicineToAdd])
 
   const addMedicine = () => {
-    console.log(currentMedicineToAdd)
+    addPrescriptionMedicine(currentMedicineToAdd, parseInt(prescriptionId))
   }
 
   const handleClick = (med) => {
@@ -106,12 +107,17 @@ const InsertPrescribedMedicine = () => {
   return (
     <div className='insertPrescribedMedicine'>
       <div className='medicine-input-component'>
-        <input value={medicine} onChange={handleInput} />
+        <input
+          placeholder='medicine name'
+          value={medicine}
+          onChange={handleInput}
+        />
         {medicineList.length > 0 && inputActive && (
           <ul className='medicineList__completion'>
             {medicineList.map((med) => {
               return (
                 <li
+                  key={med.id}
                   className='medicineList__item'
                   onClick={() => {
                     handleClick(med)
@@ -141,26 +147,28 @@ const InsertPrescribedMedicine = () => {
             })
           }}
         />
-        <select
-          name=''
-          id='dosage'
-          value={durationUnit}
-          onChange={(e) => {
-            setDurationUnit(e.target.value)
-            setCurrentMedicineToAdd({
-              ...currentMedicineToAdd,
-              ['durationUnit']: e.target.value,
-            })
-          }}
-        >
-          <option value='weeks'>weeks</option>
-          <option value='days'>days</option>
-          <option value='months'>months</option>
-        </select>
+        <span className='duration-btns'>
+          <select
+            name=''
+            id='dosage'
+            value={durationUnit}
+            onChange={(e) => {
+              setDurationUnit(e.target.value)
+              setCurrentMedicineToAdd({
+                ...currentMedicineToAdd,
+                ['durationUnit']: e.target.value,
+              })
+            }}
+          >
+            <option value='weeks'>weeks</option>
+            <option value='days'>days</option>
+            <option value='months'>months</option>
+          </select>
+          <button className='add-medicine' onClick={addMedicine}>
+            add
+          </button>
+        </span>
       </div>
-      <button className='add-medicine' onClick={addMedicine}>
-        add
-      </button>
     </div>
   )
 }

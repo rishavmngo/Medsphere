@@ -5,7 +5,9 @@ const PrescribedMedicineList = ({ prescribedMedicine }) => {
   return (
     <div className='medicineTable-body-row'>
       {prescribedMedicine.map((med) => {
-        return <PrescribedMedicineItem key={med.id} med={med} />
+        return (
+          <PrescribedMedicineItem key={med.prescribed_medicine_id} med={med} />
+        )
       })}
     </div>
   )

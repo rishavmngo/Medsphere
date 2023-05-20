@@ -1,0 +1,49 @@
+.advice-section {
+  margin-top: 40px;
+}
+.advice-section-title {
+  font-size: 2.2rem;
+  color: #202020;
+}
+
+.advice-section ul {
+  margin-top: 20px;
+  padding-left: 30px;
+}
+
+.advice-section ul li {
+  margin: 20px 0px;
+}
+.insert-advice-input {
+  display: flex;
+}
+.insert-advice-input input {
+  padding: 10px;
+  border: 1px solid #202020;
+  border-radius: 7px;
+}
+.advice-add {
+  margin-left: 10px;
+  border: 1px solid black;
+  padding: 0px 10px;
+  border-radius: 7px;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+.advice-add:hover {
+  background: #ff3e62;
+}
+.advice-add:active {
+  background: none;
+  color: #202020;
+}
+.prescribedAdviceItem {
+  cursor: pointer;
+  width: fit-content;
+}
+.prescribedAdviceItem:hover {
+  color: red;
+  text-decoration: line-through;
+}

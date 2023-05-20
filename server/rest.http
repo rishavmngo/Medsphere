@@ -224,3 +224,38 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxN
 
 GET http://localhost:3000/prescription/medicine/getAll/8
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+
+GET http://localhost:3000/prescription/advice/getAll/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+
+####
+
+
+
+POST http://localhost:3000/prescription/advice/add/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+Content-Type:application/json
+
+{
+"advice":"kuch v karo par thik ho jao"
+}
+
+
+
+
+####
+
+PUT http://localhost:3000/prescription/advice/update/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+Content-Type:application/json
+
+{
+	"id":5,
+"advice":"Go to Gym"
+}
+
+####
+DELETE http://localhost:3000/prescription/advice/delete/4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk

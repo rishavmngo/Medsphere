@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { PrescriptionContext } from '../../context/prescription.context'
+import AdviceSection from '../adviceSection/adviceSection.component'
 import InsertPrescribedMedicine from '../prescribedMedicine/prescribedMedicine.component'
 import PrescribedMedicineList from '../prescribedMedicineList/prescribedMedicineList.component'
 import './group3.style.css'
-function Group3({ data }) {
+function Group3({ data, prescriptionId }) {
   const { prescribedMedicine, getPrescribedMedicine } =
     useContext(PrescriptionContext)
   useEffect(() => {
@@ -23,8 +24,9 @@ function Group3({ data }) {
 
         <div className='medicineTable-body'>
           <PrescribedMedicineList prescribedMedicine={prescribedMedicine} />
-          <InsertPrescribedMedicine />
+          <InsertPrescribedMedicine prescriptionId={prescriptionId} />
         </div>
+        <AdviceSection prescriptionId={prescriptionId} />
         {/* <div className='medicineTable-footer'></div> */}
       </div>
     </div>
