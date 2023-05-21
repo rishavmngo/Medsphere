@@ -13,6 +13,7 @@ import FullScreen from './component/fullscreen/fullscreen.component'
 import Prescription from './component/prescription/prescription.component'
 import { ClipLoader } from 'react-spinners'
 import InventoryPage from './routes/inventory/inventory.component'
+import Settings from './routes/settings/settings.component'
 
 function RequireAuth(Component, props) {
   const { user } = useContext(AuthContext)
@@ -146,6 +147,7 @@ const Kpp = () => {
         <Route element={<AdminRoutes admin={user && user.is_organisation} />}>
           <Route path='/manage' element={<Manage />} />
           <Route path='/inventory' element={<InventoryPage />} />
+          <Route path='/settings' element={<Settings />} />
         </Route>
       </Route>
       <Route path='*' element={<NotFound />} />
