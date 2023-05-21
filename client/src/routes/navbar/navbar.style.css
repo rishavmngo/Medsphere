@@ -25,14 +25,31 @@
 }
 
 .Account-pic {
-  height: 50px;
   width: 50px;
-  background: black;
+  height: 50px;
   border-radius: 100%;
-  margin-right: 20px;
-  background-image: url(../../assets/rishav-pic.jpeg);
-  background-size: 100%;
-  pointer-events: none;
+  /* margin-right: 20px; */
+  /* pointer-events: none; */
+  /* overflow: hidden; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* background: white; */
+  margin-right: 10px;
+}
+.Account-pic img {
+  /* width: 80%; */
+  /* height: 80%; */
+  height: 100%;
+  width: 100%;
+  /* aspect-ratio: 1/1; */
+  object-fit: cover;
+  border-radius: 100%;
+  /* padding: 2px; */
+  /* max-width: 50px; */
+  /* max-height: 50px; */
+  /* height: auto; */
+  /* width: auto; */
 }
 .Account-name {
   font-size: 1rem;

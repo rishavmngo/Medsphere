@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/auth.context'
 import NavDropdown from '../../component/navDropDown/navDropDown.component'
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext)
+  console.log(user)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const navRef = useRef()
@@ -26,20 +27,16 @@ const Navbar = () => {
     }
   }, [navRef])
 
-  function Click() {
-    const input = document.getElementById('print')
-    console.log(input)
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF()
-      pdf.addImage(imgData, 'PNG', 0, 0)
-      pdf.save('download.pdf')
-    })
-  }
   return (
     <>
       <div className='Navbar-container'>
-        <NavDropdown logout={logout} show={dropdownOpen} innerRef={navRef} />
+        <NavDropdown
+          logout={logout}
+          toggle={setDropdownOpen}
+          show={dropdownOpen}
+          innerRef={navRef}
+          admin={user.is_organisation}
+        />
         <div className='app-container'>
           <div className='Navbar-title'>Medsphere</div>
           <div
@@ -47,7 +44,15 @@ const Navbar = () => {
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <div className='Account-details'>
-              <div className='Account-pic'></div>
+              <div className='Account-pic'>
+                {!user.profile_picture ? (
+                  <img src='../../assets/rishav-pic.jpeg' />
+                ) : (
+                  <img
+                    src={`http://localhost:3000/static/${user.profile_picture}`}
+                  />
+                )}
+              </div>
               <div className='Account-name'>{`${
                 user.is_organisation ? '' : 'Dr. '
               } ${user.displayname}`}</div>
