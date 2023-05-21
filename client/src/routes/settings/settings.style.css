@@ -1,0 +1,10 @@
+.profile-picture-display {
+  max-width: 400px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+}
+.profile-picture-display img {
+  height: 100%;
+  width: 100%;
+}
