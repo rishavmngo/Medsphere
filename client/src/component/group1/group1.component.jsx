@@ -1,4 +1,6 @@
-import { ReactComponent as OrgLogo } from '../../assets/icon.svg'
+import { ReactComponent as OrgLogo } from '../../assets/icon.png'
+import png from '../../assets/icon.png'
+import './group1.style.css'
 function Group1({ data }) {
   const {
     doctors_name,
@@ -7,6 +9,7 @@ function Group1({ data }) {
     organisation_name,
     organisation_phone_number,
     organisation_address,
+    org_logo,
   } = data
   return (
     <div className='group1'>
@@ -18,7 +21,14 @@ function Group1({ data }) {
         </div>
       </div>
       <div className='org-logo group1-nest'>
-        <OrgLogo />
+        {/* <OrgLogo /> */}
+        <div className='Plogo'>
+          {!org_logo ? (
+            <img src={png} />
+          ) : (
+            <img src={`http://localhost:3000/static/${org_logo}`} />
+          )}
+        </div>
       </div>
       <div className='org-details group1-nest'>
         <h1 className='OrgName'>{organisation_name}</h1>
