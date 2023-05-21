@@ -14,6 +14,7 @@ export const AuthContext = createContext({
   logout: () => null,
   registerOrganisation: () => null,
   getDepartment: () => null,
+  uploadProfilePicture: () => null,
 })
 
 const AuthProvider = ({ children }) => {
@@ -96,6 +97,27 @@ const AuthProvider = ({ children }) => {
     deleteTokenFromLocalStorage()
     setUser(null)
   }
+  const uploadProfilePicture = async (image) => {
+    const token = getTokenFromLocalStorage()
+    const formData = new FormData()
+    formData.append('image', image)
+
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/upload/org/profile/icon',
+        formData,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      if (data) setUser(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const values = {
     login,
@@ -104,6 +126,7 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     registerOrganisation,
+    uploadProfilePicture,
   }
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }
