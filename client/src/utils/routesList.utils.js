@@ -4,6 +4,7 @@ import {
   FaHistory,
   FaUsersCog,
   FaTruck,
+  FaCog,
 } from 'react-icons/fa'
 import { MdSpaceDashboard } from 'react-icons/md'
 export const generalRoutesList = {
@@ -51,6 +52,13 @@ export const adminRouteList = {
     name: 'Inventory',
     path: '/inventory',
     icon: <FaTruck />,
+    forAdmin: true,
+  },
+  settings: {
+    id: 7,
+    name: 'Settings',
+    path: '/settings',
+    icon: <FaCog />,
     forAdmin: true,
   },
 }
