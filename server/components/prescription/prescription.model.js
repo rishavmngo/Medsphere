@@ -34,11 +34,13 @@ prescription.getById = async (prescriptionId) => {
 	d.uid as doctors_id,
 	d.displayname as doctors_name,
 	d.qualifications as doctors_qualifications,
+  d.signature as doctors_signature,
 	department.name as doctors_department,
 	org.displayname as organisation_name,
 	org.email as organisation_email,
 	org.address as organisation_address,
-	org.phone_number as organisation_phone_number
+	org.phone_number as organisation_phone_number,
+  org.profile_picture as org_logo
 from
 	prescription p
 left join appointments a on
