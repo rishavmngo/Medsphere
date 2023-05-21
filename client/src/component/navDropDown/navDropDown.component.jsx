@@ -3,7 +3,8 @@ import { CiUser } from 'react-icons/ci'
 import NavDropdownItem from '../navDropdownItem/navDropdownItem.component'
 import './navDropDown.style.css'
 import { useNavigate } from 'react-router-dom'
-const NavDropdown = ({ logout, innerRef, show }) => {
+import { FaCog } from 'react-icons/fa'
+const NavDropdown = ({ admin, logout, innerRef, show, toggle }) => {
   const navigate = useNavigate()
   return (
     <div
@@ -11,9 +12,18 @@ const NavDropdown = ({ logout, innerRef, show }) => {
       ref={innerRef}
     >
       <div className='NavDropdown-list'>
-        <div className='NavDropdown-list-section'>
-          <NavDropdownItem label='profile' icon={<CiUser />} />
-        </div>
+        {admin && (
+          <div className='NavDropdown-list-section'>
+            <NavDropdownItem
+              label='Settings'
+              icon={<FaCog />}
+              onClick={() => {
+                navigate('/settings')
+                toggle(false)
+              }}
+            />
+          </div>
+        )}
         <div className='NavDropdown-list-section'>
           <NavDropdownItem
             label='logout'
