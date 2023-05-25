@@ -2,11 +2,13 @@ import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
 import ButtonPrime from '../../component/primary_btn/primary_btn.component'
 import './settings.style.css'
+import UpdateOrg from '../../component/updateOrg/updateOrg.component'
 
 const Settings = () => {
-  const [image, setImage] = useState(null)
   const [displayImage, setDisplayImage] = useState(null)
-  const { uploadProfilePicture } = useContext(AuthContext)
+  const { uploadProfilePicture, user, updateOrganisation } =
+    useContext(AuthContext)
+  const [image, setImage] = useState(null)
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     const fileReader = new FileReader()
@@ -21,12 +23,32 @@ const Settings = () => {
     uploadProfilePicture(image)
   }
   return (
-    <div>
-      <input type='file' name='myfile' onChange={handleFileChange} />
-      <div className='profile-picture-display'>
-        <img src={displayImage} />
-        {displayImage && <ButtonPrime onClick={uploadPhoto} text='upload' />}
+    <div className='setting-container'>
+      <div className='setting-org-icon-container-'>
+        <h1 className='organsiation-setting-title'>Organisation Settings</h1>
+        <div className='profile-picture-display'>
+          <img src={displayImage} />
+        </div>
+        {displayImage ? (
+          <label className='org_icon_chooser' onClick={uploadPhoto}>
+            Upload
+          </label>
+        ) : (
+          <>
+            <input
+              type='file'
+              id='myfile'
+              name='myfile'
+              onChange={handleFileChange}
+              hidden
+            />
+            <label htmlFor='myfile' className='org_icon_chooser'>
+              choose icon
+            </label>
+          </>
+        )}
       </div>
+      <UpdateOrg user={user} updateOrganisation={updateOrganisation} />
     </div>
   )
 }

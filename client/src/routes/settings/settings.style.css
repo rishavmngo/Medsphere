@@ -1,10 +1,22 @@
 .profile-picture-display {
-  max-width: 400px;
-  max-height: 400px;
-  width: auto;
-  height: auto;
 }
 .profile-picture-display img {
-  height: 100%;
-  width: 100%;
+  width: 400px;
+  height: 400px;
+  margin: 20px 0px;
+  border-radius: 10px;
+  border: 1px solid #202020;
+}
+.org_icon_chooser {
+  padding: 0.8rem;
+  color: white;
+  background: indigo;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.org_icon_chooser:active {
+  background: #603083;
+}
+.setting-container {
+  display: flex;
 }
