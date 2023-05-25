@@ -15,6 +15,7 @@ export const AuthContext = createContext({
   registerOrganisation: () => null,
   getDepartment: () => null,
   uploadProfilePicture: () => null,
+  updateOrganisation: () => null,
 })
 
 const AuthProvider = ({ children }) => {
@@ -93,6 +94,37 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  async function updateOrganisation({
+    email,
+    name,
+    password,
+    address,
+    phoneNumber,
+  }) {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.put(
+        'http://localhost:3000/users/update',
+        {
+          email,
+          displayname: name,
+          password,
+          address,
+          phone_number: phoneNumber,
+        },
+
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      autoLogin()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const logout = () => {
     deleteTokenFromLocalStorage()
     setUser(null)
@@ -127,6 +159,7 @@ const AuthProvider = ({ children }) => {
     setUser,
     registerOrganisation,
     uploadProfilePicture,
+    updateOrganisation,
   }
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }
