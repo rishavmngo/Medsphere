@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap');
+.preview-comp {
+  position: absolute;
+  background: white;
+  /* width: 100vw; */
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  /* overflow-y: scroll; */
+}
+.pdf4 {
+  /* padding: 5px; */
+  font-family: 'Exo 2', sans-serif;
+  display: grid;
+  width: 21cm;
+  height: 29.7cm;
+  /* grid-template-columns: 1; */
+  grid-template-rows: 14% 15% 35% 21% 15%;
+}
+.child-section {
+  padding: 15px;
+}
+.section-one {
+  background: #b799ff;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  /* align-items: center; */
+  border-bottom: 1px solid black;
+}
+.export__doctors-info {
+  display: flex;
+  flex-direction: column;
+}
+.export__doctors-info span {
+  margin: 2px;
+}
+.export_doctor_name {
+  --Doctor_name: red;
+  color: var(--Doctor_name);
+  font-size: 1.4rem;
+}
+
+/* org */
+.export__org_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.export__org_info span {
+  margin: 2px;
+}
+.export_org_name {
+  --Org-name-color: red;
+  color: var(--Org-name-color);
+  font-size: 1.4rem;
+}
+
+.export__org_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-two {
+  background: #acbcff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.export__section-two-item {
+  display: flex;
+}
+
+.export__section-two-item .export_item-first {
+  margin-right: 10px;
+}
+.section-three {
+  background: #aee2ff;
+}
+.section-three-table-header {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 5px 0px;
+}
+.section-three div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.section-three-table-row {
+  font-size: 1.1rem;
+  color: #202020;
+  margin-bottom: 4px;
+}
+.section-four {
+  background: #2cd3e1;
+}
+.advice-given-title {
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.export_advice-list span {
+  display: list-item;
+  margin: 10px 0px;
+  margin-left: 30px;
+  font-size: 1.1rem;
+}
+.section-five {
+  background: #f266ab;
+}
+.export-signature-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.export_signature img {
+  /* width: 100px; */
+  width: auto;
+  height: auto;
+  max-height: 70px;
+  background: white;
+  /* object-fit: cover; */
+}
+.export-signature-doctor-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.export-signature-doctor-qual {
+  color: #202020;
+}
+.export {
+  position: fixed;
+  left: 0px;
+}
+.child-section {
+  background: white;
+}
