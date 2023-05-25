@@ -13,19 +13,39 @@ import html2canvas from 'html2canvas'
 //
 //
 
-const printDocument = (input) => {
-  console.log(input)
+// const printDocument = (input) => {
+//   console.log(input)
+//   // input = `<div>helloworld</div>`
+//
+//   // const doc = new jsPDF('l', 'mm', [1700, 1700])
+//   const doc = new jsPDF()
+//
+//   doc.html(input, {
+//     callback: function (doc) {
+//       // setTimeout(() => {
+//       //   console.log('download')
+//       // }, 5000)
+//       doc.save()
+//     },
+//     windowWidth: 1700,
+//     width: 220,
+//     x: -5,
+//     y: -10,
+//   })
+// }
 
-  const doc = new jsPDF('l', 'mm', [1700, 1700])
+const printDocument = (input) => {
+  const doc = new jsPDF()
 
   doc.html(input, {
     callback: function (doc) {
-      // setTimeout(() => {
-      //   console.log('download')
-      // }, 5000)
+      doc.setFont('inter', 'normal')
       doc.save()
     },
+    windowWidth: 379,
+    width: 100,
+    // x: -5,
+    // y: -10,
   })
 }
-
 export default printDocument

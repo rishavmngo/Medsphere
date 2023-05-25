@@ -5,6 +5,7 @@ import InsertPrescribedMedicine from '../prescribedMedicine/prescribedMedicine.c
 import PrescribedMedicineList from '../prescribedMedicineList/prescribedMedicineList.component'
 import './group3.style.css'
 function Group3({ data, prescriptionId }) {
+  console.log(data)
   const { prescribedMedicine, getPrescribedMedicine } =
     useContext(PrescriptionContext)
   useEffect(() => {
@@ -12,6 +13,7 @@ function Group3({ data, prescriptionId }) {
     if (!id) return
     getPrescribedMedicine(id)
   }, [data])
+  const { doctors_name, doctors_qualifications, doctors_signature } = data
 
   return (
     <div className='group3'>
@@ -27,7 +29,22 @@ function Group3({ data, prescriptionId }) {
           <InsertPrescribedMedicine prescriptionId={prescriptionId} />
         </div>
         <AdviceSection prescriptionId={prescriptionId} />
-        {/* <div className='medicineTable-footer'></div> */}
+        <div className='medicineTable-footer'>
+          <div className='signature-comp'>
+            <img
+              className='doctors_signature'
+              src={`http://localhost:3000/static/${doctors_signature}`}
+            />
+            <div className='signature-comp__doctors_details'>
+              <div className='signature-comp__doctors-details-name'>
+                Dr.{doctors_name}
+              </div>
+              <div className='signature-comp__doctors-details-qualifications'>
+                {doctors_qualifications}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

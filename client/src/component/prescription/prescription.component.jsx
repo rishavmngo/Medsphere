@@ -2,23 +2,26 @@ import './prescription.style.css'
 import Group1 from '../group1/group1.component'
 import Group2 from '../group2/group2.component'
 import Group3 from '../group3/group3.component'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { PrescriptionContext } from '../../context/prescription.context'
 import { useParams } from 'react-router-dom'
 import { parseInt } from 'lodash'
 import printDocument from '../../utils/pdf'
+import { PreviewA4 } from '@diagoriente/react-preview-a4'
+import Pdf from '../pdfTesting/pdfTesting.component'
 
 function Prescription() {
   const { currentPrescription, getPrescrcriptionById } =
     useContext(PrescriptionContext)
   const { prescriptionId } = useParams()
+  const [preview, togglePreview] = useState(false)
   const input = useRef(0)
   useEffect(() => {
     getPrescrcriptionById(parseInt(prescriptionId))
   }, [])
 
-  const handleExport = () => {
-    printDocument(input.current)
+  const handlePreview = () => {
+    togglePreview(!preview)
   }
   useEffect(() => {
     console.log(input)
@@ -26,7 +29,9 @@ function Prescription() {
 
   return (
     <>
-      <button onClick={handleExport}>print</button>
+      <button onClick={handlePreview}>preview</button>
+      {preview && <Pdf preview={currentPrescription} />}
+
       <div id='prescription' className='prescription' ref={input}>
         <div className='groups'>
           <Group1 data={currentPrescription} />

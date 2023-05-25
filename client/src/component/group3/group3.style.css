@@ -9,9 +9,10 @@
   /* border-bottom: 2px solid black; */
 }
 .medicineTable-footer {
-  height: 50px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  margin-top: 420px;
+  /* height: 50px; */
+  /* border-top: 2px solid black; */
+  /* border-bottom: 2px solid black; */
 }
 .medicine-data {
   /* display: flex; */
@@ -25,4 +26,29 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 2fr 1fr 1fr;
+}
+.signature-comp {
+  padding: 10px;
+  max-width: 300px;
+  /* width: fit-content; */
+  margin-left: auto;
+  position: relative;
+}
+.doctors_signature {
+  position: absolute;
+  top: -50px;
+  left: -1px;
+  height: 100%;
+  width: 100%;
+  object-fit: initial;
+  transform: scale(1.2);
+}
+.signature-comp__doctors_details {
+  color: #b7b7b7;
+}
+.signature-comp__doctors-details-name {
+  text-transform: capitalize;
+}
+.signature-comp__doctors-details-qualifications {
+  font-size: 1.5rem;
 }
