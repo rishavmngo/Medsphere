@@ -1,0 +1,12 @@
+.update-org-comp {
+  margin-top: 50px;
+  margin-left: 100px;
+}
+.org-update-form > * {
+  margin-top: 40px;
+}
+
+.org-update-form div {
+  /* display: block; */
+  margin: 5px 0px;
+}
