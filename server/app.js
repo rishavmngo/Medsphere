@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const ppdf = require('wkhtmltopdf')
 const {
   programmerErrorHandler,
   operationalErrorHandler,
@@ -20,6 +21,10 @@ app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
   res.send('welcome to medsphere api')
+})
+
+app.get('/pdf', (req, res) => {
+  res.send('welcome to pdf')
 })
 
 app.use('/static', express.static('Images'))

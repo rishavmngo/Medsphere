@@ -104,4 +104,30 @@ users.getBySubstring = async (substring, uid) => {
     throw new AppError('Database Error', 502, error.message, false)
   }
 }
+users.updateOne = async (uid, name, address, phone_number, password, email) => {
+  const response = {}
+
+  // console.log(uid, name, address, phone_number, password, email)
+
+  const query = {
+    text: `UPDATE users 
+           set displayname = $2,
+					  address = $3,
+            phone_number=$4,
+            password = $5,
+            email = $6
+		       where uid=$1
+		returning *`,
+    values: [uid, name, address, phone_number, password, email],
+  }
+  try {
+    const { rows } = await db.query(query)
+
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = users
