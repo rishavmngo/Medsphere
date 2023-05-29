@@ -1,5 +1,6 @@
 medsphere/client/node_modules/
 medsphere/server/node_modules/
+medsphere/server/Images
 pgdata
 compose.yaml
 
