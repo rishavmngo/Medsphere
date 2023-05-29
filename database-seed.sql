@@ -7,6 +7,8 @@ CREATE TABLE public.users (
 	organisation_id int4 NULL,
 	is_organisation bool NULL DEFAULT false,
 	department_id int4 NULL,
+	profile_picture text NULL,
+	signature text NULL,
 	age int4 NULL,
 	address text NULL,
 	phone_number text NULL,

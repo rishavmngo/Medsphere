@@ -130,4 +130,28 @@ users.updateOne = async (uid, name, address, phone_number, password, email) => {
     throw new AppError('Database Error', 502, error.message, false)
   }
 }
+
+users.deleteById = async (uid) => {
+  const response = {}
+
+  const query = {
+    text: `
+	DELETE
+	from
+	users
+	where uid=$1
+	returning *`,
+    values: [uid],
+  }
+  console.log(query)
+  try {
+    const { rows } = await db.query(query)
+
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = users

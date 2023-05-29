@@ -15,3 +15,6 @@
 .login-link-btn:hover {
   color: gray;
 }
+.registerError {
+  color: red;
+}

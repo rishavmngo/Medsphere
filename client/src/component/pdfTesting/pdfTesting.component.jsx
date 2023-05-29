@@ -2,8 +2,9 @@ import { PreviewA4 } from '@diagoriente/react-preview-a4'
 import './pdfTesting.style.css'
 import printDocument from '../../utils/pdf'
 import { useEffect, useRef } from 'react'
-const Pdf = ({ preview }) => {
-  console.log(preview)
+import { Button } from '@mui/material'
+import { Close, Delete, Download } from '@mui/icons-material'
+const Pdf = ({ preview, togglePreview }) => {
   const input = useRef(0)
   const handleExport = () => {
     printDocument(input.current)
@@ -11,9 +12,25 @@ const Pdf = ({ preview }) => {
   useEffect(() => {}, [input])
   return (
     <div className='preview-comp'>
-      <button onClick={handleExport} className='export'>
-        print
-      </button>
+      {/* <button onClick={handleExport} className='export'> */}
+      {/*   print */}
+      {/* </button> */}
+      <div className='close-btn'>
+        <Button
+          variant='outline'
+          startIcon={<Close />}
+          onClick={() => togglePreview(false)}
+        />
+      </div>
+      <div className='export-btn'>
+        <Button
+          onClick={handleExport}
+          variant='contained'
+          startIcon={<Download />}
+        >
+          Download
+        </Button>
+      </div>
       <div ref={input} className='pdf4'>
         <div className='section-one child-section'>
           <div className='export__doctors-info'>

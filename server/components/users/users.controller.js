@@ -66,4 +66,16 @@ users.getBySubstring = async (req, res, next) => {
     next(new AppError('Internal server error', 502, error.message, false))
   }
 }
+
+users.deleteById = async (req, res, next) => {
+  const uid = req.params.uid
+
+  try {
+    const { data } = await usersDb.deleteById(uid)
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = users

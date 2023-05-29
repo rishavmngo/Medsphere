@@ -6,6 +6,8 @@ export const DoctorsContext = createContext({
   doctors: [],
   getDoctorsForOrg: () => null,
   registerDoctor: () => null,
+  deleteDoctorById: () => null,
+  uploadSignatureForDoctor: () => null,
 })
 
 const DoctorsProvider = ({ children }) => {
@@ -56,10 +58,57 @@ const DoctorsProvider = ({ children }) => {
     }
   }
 
+  async function deleteDoctorById(id) {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3000/users/deleteById/${id}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      await getDoctorsForOrg()
+
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+
+  async function uploadSignatureForDoctor(id, image) {
+    const token = getTokenFromLocalStorage()
+    const formData = new FormData()
+    formData.append('image', image)
+
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3000/upload/doctor/profile/signature/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      return true
+      // if (data) setUser(data)
+    } catch (error) {
+      return false
+      console.log(error)
+    }
+  }
+
   const values = {
     doctors,
     getDoctorsForOrg,
     registerDoctor,
+    deleteDoctorById,
+    uploadSignatureForDoctor,
   }
   return (
     <DoctorsContext.Provider value={values}>{children}</DoctorsContext.Provider>

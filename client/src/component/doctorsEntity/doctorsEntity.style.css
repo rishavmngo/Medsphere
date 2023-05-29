@@ -1,0 +1,23 @@
+.confirmationBox {
+  position: absolute;
+  /* top: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%, -50%); */
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  /* padding: 50px 100px; */
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirmationBox-inner * {
+  font-size: 1.5rem;
+  margin: 10px;
+}
+.confirmationBox-inner div span {
+  border: 1px solid black;
+  padding: 10px;
+}

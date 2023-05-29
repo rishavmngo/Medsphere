@@ -14,6 +14,8 @@ import Prescription from './component/prescription/prescription.component'
 import { ClipLoader } from 'react-spinners'
 import InventoryPage from './routes/inventory/inventory.component'
 import Settings from './routes/settings/settings.component'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function RequireAuth(Component, props) {
   const { user } = useContext(AuthContext)
@@ -121,38 +123,40 @@ const Kpp = () => {
       </div>
     )
   }
-
   return (
-    <Routes>
-      <Route
-        path='/'
-        Component={() => (
-          <ProtectedRoute auth={!!user}>
-            <StaticComp />
-          </ProtectedRoute>
-        )}
-      >
-        <Route path='/' element={user && <Dashboard />} />
-        <Route path='/appointments' element={<Appointments />} />
-        <Route path='/patients' element={<Patients />} />
-        <Route path='/history' element={<History />} />
+    <>
+      <Routes>
         <Route
-          path='/prescription/:prescriptionId'
-          element={
-            <FullScreen>
-              <Prescription />
-            </FullScreen>
-          }
-        />
-        <Route element={<AdminRoutes admin={user && user.is_organisation} />}>
-          <Route path='/manage' element={<Manage />} />
-          <Route path='/inventory' element={<InventoryPage />} />
-          <Route path='/settings' element={<Settings />} />
+          path='/'
+          Component={() => (
+            <ProtectedRoute auth={!!user}>
+              <StaticComp />
+            </ProtectedRoute>
+          )}
+        >
+          <Route path='/' element={user && <Dashboard />} />
+          <Route path='/appointments' element={<Appointments />} />
+          <Route path='/patients' element={<Patients />} />
+          <Route path='/history' element={<History />} />
+          <Route
+            path='/prescription/:prescriptionId'
+            element={
+              <FullScreen>
+                <Prescription />
+              </FullScreen>
+            }
+          />
+          <Route element={<AdminRoutes admin={user && user.is_organisation} />}>
+            <Route path='/manage' element={<Manage />} />
+            <Route path='/inventory' element={<InventoryPage />} />
+            <Route path='/settings' element={<Settings />} />
+          </Route>
         </Route>
-      </Route>
-      <Route path='*' element={<NotFound />} />
-      {/* <Route path='/auth' element={<Authentication />}></Route> */}
-    </Routes>
+        <Route path='*' element={<NotFound />} />
+        {/* <Route path='/auth' element={<Authentication />}></Route> */}
+      </Routes>
+      <ToastContainer />
+    </>
   )
 }
 

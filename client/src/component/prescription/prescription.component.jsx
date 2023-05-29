@@ -9,6 +9,7 @@ import { parseInt } from 'lodash'
 import printDocument from '../../utils/pdf'
 import { PreviewA4 } from '@diagoriente/react-preview-a4'
 import Pdf from '../pdfTesting/pdfTesting.component'
+import { Button } from '@mui/material'
 
 function Prescription() {
   const { currentPrescription, getPrescrcriptionById } =
@@ -29,8 +30,12 @@ function Prescription() {
 
   return (
     <>
-      <button onClick={handlePreview}>preview</button>
-      {preview && <Pdf preview={currentPrescription} />}
+      <Button onClick={handlePreview} variant='outlined' id='preview_button'>
+        preview
+      </Button>
+      {preview && (
+        <Pdf preview={currentPrescription} togglePreview={togglePreview} />
+      )}
 
       <div id='prescription' className='prescription' ref={input}>
         <div className='groups'>

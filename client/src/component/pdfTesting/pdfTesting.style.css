@@ -1,17 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+.export-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
 .preview-comp {
   position: absolute;
-  background: white;
-  /* width: 100vw; */
+  /* background: white; */
+  backdrop-filter: blur(5px);
+
   right: 0;
   left: 0;
   top: 0;
   bottom: 0;
+  height: 100vh;
   z-index: 1000;
   display: flex;
   /* align-items: center; */
   justify-content: center;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 .pdf4 {
   /* padding: 5px; */
@@ -31,6 +44,14 @@
   grid-template-columns: 1fr 0.5fr 1fr;
   /* align-items: center; */
   border-bottom: 1px solid black;
+}
+.section-one div {
+  /* border: 1px solid black; */
+}
+.export__org_icon img {
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 10px;
 }
 .export__doctors-info {
   display: flex;

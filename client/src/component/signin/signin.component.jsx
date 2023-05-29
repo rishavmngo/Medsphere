@@ -4,6 +4,7 @@ import InputField from '../inputField/inputField.component'
 import ButtonPrime from '../primary_btn/primary_btn.component'
 import './signin.styles.css'
 import { AuthContext } from '../../context/auth.context'
+import { toast } from 'react-toastify'
 
 const defaultFormFields = {
   email: '',
@@ -19,8 +20,12 @@ const Login = ({ setIsLogin }) => {
     const { name, value } = e.target
     setFormFields({ ...formFields, [name]: value })
   }
-  const handleSubmit = (e) => {
-    login(email, password)
+  const handleSubmit = async (e) => {
+    const success = await login(email, password)
+    if (!success)
+      toast.error('Authentication Failed', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
     setFormFields(defaultFormFields)
   }
 

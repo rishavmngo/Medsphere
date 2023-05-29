@@ -43,8 +43,11 @@ const AuthProvider = ({ children }) => {
       await getUserAndSetUser(token)
 
       saveTokenToLocalStorage(token)
+      console.log(token)
+      return true
     } catch (error) {
       console.log(error)
+      return false
     }
   }
 
@@ -89,8 +92,10 @@ const AuthProvider = ({ children }) => {
       )
       await getUserAndSetUser(token)
       saveTokenToLocalStorage(token)
+      return true
     } catch (error) {
       console.log(error)
+      return false
     }
   }
 
