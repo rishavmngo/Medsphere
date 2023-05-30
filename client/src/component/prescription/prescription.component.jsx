@@ -6,8 +6,6 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { PrescriptionContext } from '../../context/prescription.context'
 import { useParams } from 'react-router-dom'
 import { parseInt } from 'lodash'
-import printDocument from '../../utils/pdf'
-import { PreviewA4 } from '@diagoriente/react-preview-a4'
 import Pdf from '../pdfTesting/pdfTesting.component'
 import { Button } from '@mui/material'
 
@@ -34,7 +32,11 @@ function Prescription() {
         preview
       </Button>
       {preview && (
-        <Pdf preview={currentPrescription} togglePreview={togglePreview} />
+        <Pdf
+          prescriptionId={prescriptionId}
+          preview={currentPrescription}
+          togglePreview={togglePreview}
+        />
       )}
 
       <div id='prescription' className='prescription' ref={input}>

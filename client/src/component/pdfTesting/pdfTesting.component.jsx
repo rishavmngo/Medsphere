@@ -1,20 +1,50 @@
 import { PreviewA4 } from '@diagoriente/react-preview-a4'
 import './pdfTesting.style.css'
 import printDocument from '../../utils/pdf'
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { Button } from '@mui/material'
 import { Close, Delete, Download } from '@mui/icons-material'
-const Pdf = ({ preview, togglePreview }) => {
+import { PrescriptionContext } from '../../context/prescription.context'
+const Pdf = ({ prescriptionId, preview, togglePreview }) => {
   const input = useRef(0)
+  const {
+    prescribedMedicine,
+    prescribedAdvice,
+    getPrescribedMedicine,
+    getPrescribedAdvice,
+  } = useContext(PrescriptionContext)
   const handleExport = () => {
     printDocument(input.current)
   }
+  const {
+    doctors_name,
+    doctors_qualifications,
+    doctors_signature,
+    doctors_department,
+    organisation_address,
+    organisation_email,
+    organisation_name,
+    organisation_phone_number,
+    patients_address,
+    patients_age,
+    patients_blood_group,
+    patients_gender,
+    patients_id,
+    patients_name,
+    id,
+    timestamp,
+  } = preview
+
+  const date = new Date(timestamp)
+  const localFormat = date.toLocaleString().split(',')[0]
+
+  useEffect(() => {
+    getPrescribedMedicine(id)
+    getPrescribedAdvice(id)
+  }, [id])
   useEffect(() => {}, [input])
   return (
     <div className='preview-comp'>
-      {/* <button onClick={handleExport} className='export'> */}
-      {/*   print */}
-      {/* </button> */}
       <div className='close-btn'>
         <Button
           variant='outline'
@@ -34,12 +64,16 @@ const Pdf = ({ preview, togglePreview }) => {
       <div ref={input} className='pdf4'>
         <div className='section-one child-section'>
           <div className='export__doctors-info'>
-            <span className='export_doctor_name'>Dr. Sachin Chaubey</span>
+            <span className='export_doctor_name'>
+              Dr. {preview.doctors_name}
+            </span>
             <span className='export_doctor_qulification'>
-              M.B.B.S | M.D | M.S
+              {!!doctors_qualifications
+                ? doctors_qualifications
+                : 'M.B.B.S | M.D | M.S'}
             </span>
             <span className='export_doctor_qualification'>
-              Department of Cardiology
+              {doctors_department}
             </span>
             <span className='export_doctor_reg_no'>REG No. 12352343</span>
           </div>
@@ -47,36 +81,44 @@ const Pdf = ({ preview, togglePreview }) => {
             <img src={`http://localhost:3000/static/${preview.org_logo}`} />
           </div>
           <div className='export__org_info'>
-            <span className='export_org_name'>Nalanda Hospital</span>
+            <span className='export_org_name'>{organisation_name}</span>
             <span className='export__org_address'>
-              O Pocket, Ganga Nagar Meerut, Uttar Pradesh 250001
+              {!!organisation_address
+                ? organisation_address
+                : 'O Pocket, Ganga Nagar Meerut, Uttar Pradesh 250001'}
             </span>
             <span className='export__phone_number'>
-              Ph: +91123232323 | 180020522
+              Ph:{' '}
+              {!!organisation_phone_number
+                ? `${organisation_phone_number} |`
+                : ''}{' '}
+              180020522
             </span>
           </div>
         </div>
 
         <div className='section-two child-section'>
           <span className='export__section-two-item'>
-            <span className='export_item-first'>ID 4 -</span>
-            <span className='export_item-two'>Utkarsh Yadav</span>
+            <span className='export_item-first'>ID {patients_id} -</span>
+            <span className='export_item-two'>{patients_name}</span>
           </span>
           <span className='export__section-two-item'>
             <span className='export_item-first'>Date:</span>
-            <span className='export_item-two'>5/19/2023</span>
+            <span className='export_item-two'>
+              {localFormat ? localFormat : '5/19/2023'}
+            </span>
           </span>
           <span className='export__section-two-item'>
             <span className='export_item-first'>Age:</span>
-            <span className='export_item-two'>21</span>
+            <span className='export_item-two'>{patients_age}</span>
           </span>
           <span className='export__section-two-item'>
             <span className='export_item-first'>Blood group:</span>
-            <span className='export_item-two'>A+</span>
+            <span className='export_item-two'>{patients_blood_group}</span>
           </span>
           <span className='export__section-two-item'>
             <span className='export_item-first'>Address:</span>
-            <span className='export_item-two'>Ganganagar merrut 25033</span>
+            <span className='export_item-two'>{patients_address}</span>
           </span>
         </div>
         <div className='section-three child-section'>
@@ -85,22 +127,40 @@ const Pdf = ({ preview, togglePreview }) => {
             <span>Dosage</span>
             <span>Duration</span>
           </div>
-          <div className='section-three-table-row'>
-            <span>Resant - Tablet</span>
-            <span>1 morning, 1 night</span>
-            <span>10 days</span>
-          </div>
-          <div className='section-three-table-row'>
-            <span>Resant - Tablet</span>
-            <span>1 morning, 1 night</span>
-            <span>10 days</span>
-          </div>
+          {/* <div className='section-three-table-row'> */}
+          {/*   <span>Resant - Tablet</span> */}
+          {/*   <span>1 morning, 1 night</span> */}
+          {/*   <span>10 days</span> */}
+          {/* </div> */}
+          {prescribedMedicine.map(
+            ({
+              prescribed_medicine_id,
+              medicine_name,
+              dosage,
+              dosageform,
+              duration,
+            }) => {
+              return (
+                <div
+                  key={`item.${prescribed_medicine_id}.medicine`}
+                  className='section-three-table-row'
+                >
+                  <span>
+                    {medicine_name} - {dosageform}
+                  </span>
+                  <span>{dosage}</span>
+                  <span>{duration}</span>
+                </div>
+              )
+            }
+          )}
         </div>
         <div className='section-four child-section'>
           <h2 className='advice-given-title'>Advice Given: </h2>
           <div className='export_advice-list'>
-            <span>avoid spicy food</span>
-            <span>Exercise daily</span>
+            {prescribedAdvice.map(({ advice, id }) => {
+              return <span key={`item.${id}.advice`}>{advice}</span>
+            })}
           </div>
         </div>
         <div className='section-five child-section'>
@@ -111,10 +171,12 @@ const Pdf = ({ preview, togglePreview }) => {
               />
             </span>
             <span className='export-signature-doctor-name'>
-              Dr Sachin Chaubey
+              Dr {doctors_name}
             </span>
             <span className='export-signature-doctor-qual'>
-              M.B.B.S | M.D | M.S
+              {!!doctors_qualifications
+                ? doctors_qualifications
+                : 'M.B.B.S | M.D | M.S'}
             </span>
           </div>
         </div>

@@ -73,13 +73,14 @@ users.exists = async (email) => {
 users.getAllDoctors = async (uid) => {
   const response = {}
   try {
-    const query = `select uid,displayname, email,age, d.name as department, is_organisation , organisation_id  from  users 
+    const query = `select uid,displayname, email,password,age, d.name as department, is_organisation , organisation_id,users.address,users.phone_number,users.qualifications  from  users 
 left join department d 
 on d.id = users.department_id where organisation_id = $1`
 
     const { rows } = await db.query(query, [uid])
 
     response.data = rows
+    console.log(rows[0])
 
     return response
   } catch (error) {
@@ -149,6 +150,51 @@ users.deleteById = async (uid) => {
 
     response.data = rows[0]
 
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+users.getDoctorById = async (orgId, doctorId) => {
+  const response = {}
+  try {
+    const query = `SELECT * FROM users WHERE organisation_id=$1 and uid=$2`
+
+    const { rows } = await db.query(query, [orgId, doctorId])
+    response.data = rows[0]
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+users.updateDoctorOne = async (orgId, doctorId, modifiedDoctor) => {
+  const {
+    displayname,
+    age,
+    address,
+    email,
+    qualifications,
+    phone_number,
+    password,
+  } = modifiedDoctor
+  const response = {}
+  try {
+    const query = `UPDATE users set displayname=$1, age=$2, address=$3,email=$4,qualifications=$5,phone_number=$6,password=$7 where uid=$8 and organisation_id=$9 returning *`
+
+    const { rows } = await db.query(query, [
+      displayname,
+      age,
+      address,
+      email,
+      qualifications,
+      phone_number,
+      password,
+      doctorId,
+      orgId,
+    ])
+    response.data = rows[0]
     return response
   } catch (error) {
     throw new AppError('Database Error', 502, error.message, false)

@@ -8,6 +8,8 @@ export const DoctorsContext = createContext({
   registerDoctor: () => null,
   deleteDoctorById: () => null,
   uploadSignatureForDoctor: () => null,
+  getDoctorsById: () => null,
+  updateDoctorById: () => null,
 })
 
 const DoctorsProvider = ({ children }) => {
@@ -26,9 +28,9 @@ const DoctorsProvider = ({ children }) => {
         }
       )
 
-      if (data.length !== doctors.length) {
-        setDoctors(data)
-      }
+      // if (data.length !== doctors.length) {
+      setDoctors(data)
+      // }
     } catch (error) {
       console.error(error)
     }
@@ -71,8 +73,6 @@ const DoctorsProvider = ({ children }) => {
         }
       )
       await getDoctorsForOrg()
-
-      return true
     } catch (error) {
       console.error(error)
       return false
@@ -103,12 +103,57 @@ const DoctorsProvider = ({ children }) => {
     }
   }
 
+  async function getDoctorById(id) {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/users/getDoctorById/${id}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+
+      return data
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+
+  async function updateDoctorById(id, doctor) {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.put(
+        `http://localhost:3000/users/updateDoctorOne/${id}`,
+
+        doctor,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+
+      await getDoctorsForOrg()
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+
   const values = {
     doctors,
     getDoctorsForOrg,
     registerDoctor,
     deleteDoctorById,
     uploadSignatureForDoctor,
+    getDoctorById,
+    updateDoctorById,
   }
   return (
     <DoctorsContext.Provider value={values}>{children}</DoctorsContext.Provider>

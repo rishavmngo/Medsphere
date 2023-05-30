@@ -5,7 +5,6 @@ import InsertPrescribedMedicine from '../prescribedMedicine/prescribedMedicine.c
 import PrescribedMedicineList from '../prescribedMedicineList/prescribedMedicineList.component'
 import './group3.style.css'
 function Group3({ data, prescriptionId }) {
-  console.log(data)
   const { prescribedMedicine, getPrescribedMedicine } =
     useContext(PrescriptionContext)
   useEffect(() => {

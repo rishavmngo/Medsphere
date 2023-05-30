@@ -28,22 +28,31 @@ const defaultFormField = {
   email: '',
   password: '',
   confirmPassword: '',
+  address: '',
+  qualifications: '',
+  phone_number: '',
 }
 const DoctorsEntity = () => {
   const doctorSliderRef = useRef()
   const [dialogueOpen, toggleDialogue] = useState(false)
   const [uploadSignOpen, toggleUploadSignOpen] = useState(false)
   const [currentDoctor, setCurrentDoctor] = useState(false)
+  const [currentDoctorToUpdate, setCurrentDoctorToUpdate] = useState(null)
   const [image, setImage] = useState(null)
   const [openEditDoctor, toggleOpenEditDoctor] = useState(null)
 
   const { user } = useContext(AuthContext)
-  const { registerDoctor, deleteDoctorById, uploadSignatureForDoctor } =
-    useContext(DoctorsContext)
+  const {
+    registerDoctor,
+    deleteDoctorById,
+    uploadSignatureForDoctor,
+    updateDoctorById,
+  } = useContext(DoctorsContext)
   const { department, getAllDepartmentForOrg } = useContext(DepartmentContext)
   const [itemToDelete, setItemToDelete] = useState(null)
 
   const [formField, setFormField] = useState(defaultFormField)
+  const [updateFormField, setUpdateFormField] = useState(defaultFormField)
 
   const [currentDepartment, setCurrentDepartment] = useState({
     value: '',
@@ -86,6 +95,11 @@ const DoctorsEntity = () => {
   function handleDoctorSlider() {
     setDoctorsSlider(true)
   }
+  const updateDoctor = () => {
+    // updateFormField.password = currentDoctorToUpdate.password
+    updateDoctorById(updateFormField.uid, updateFormField)
+    toggleOpenEditDoctor(false)
+  }
 
   const handleConfirmation = () => {
     deleteDoctorById(itemToDelete.uid)
@@ -94,11 +108,14 @@ const DoctorsEntity = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target
-    console.log(name, value)
-
     setFormField({ ...formField, [name]: value })
   }
 
+  const handleUpdateChange = (event) => {
+    const { name, value } = event.target
+
+    setUpdateFormField({ ...updateFormField, [name]: value })
+  }
   const handleSubmit = () => {
     if (formField.password != formField.confirmPassword) {
       return toast.error("password and confirmPassword did't match", {
@@ -132,6 +149,14 @@ const DoctorsEntity = () => {
     }
   }, [doctorSliderRef])
 
+  const fetchDoctorById = async (item) => {
+    // const { id } = item
+    try {
+      // const doctor = await getDoctorById(id)
+      // setCurrentDoctorToUpdate(doctor)
+    } catch (error) {}
+  }
+
   useEffect(() => {
     getAllDepartmentForOrg()
   }, [])
@@ -149,7 +174,11 @@ const DoctorsEntity = () => {
             {
               name: 'Edit',
               icon: <MdEdit />,
-              func: () => toggleOpenEditDoctor(true),
+              func: (item) => {
+                setUpdateFormField(item)
+                setCurrentDoctorToUpdate(item)
+                toggleOpenEditDoctor(true)
+              },
             },
             {
               name: 'Signature',
@@ -257,16 +286,73 @@ const DoctorsEntity = () => {
       </Dialog>
       <Dialog open={openEditDoctor}>
         <DialogTitle>Modify Doctor</DialogTitle>
-        <DialogContent>
+        <DialogContent id='test-1'>
           <TextField
             type='text'
             label='Display Name'
+            name='displayname'
             color='primary'
-            onChange={() => {}}
+            onChange={handleUpdateChange}
             variant='outlined'
             id='outlined-basic'
+            value={updateFormField.displayname}
+          />
+          <TextField
+            type='text'
+            label='Email'
+            name='email'
+            color='primary'
+            onChange={handleUpdateChange}
+            variant='outlined'
+            id='outlined-basic'
+            value={updateFormField.email}
+          />
+          <TextField
+            type='text'
+            label='Age'
+            name='age'
+            color='primary'
+            onChange={handleUpdateChange}
+            variant='outlined'
+            id='outlined-basic'
+            value={updateFormField.age}
+          />
+          <TextField
+            type='text'
+            label='Address'
+            name='address'
+            color='primary'
+            onChange={handleUpdateChange}
+            variant='outlined'
+            id='outlined-basic'
+            value={updateFormField.address}
+          />
+          <TextField
+            type='text'
+            label='Phone number'
+            name='phone_number'
+            color='primary'
+            onChange={handleUpdateChange}
+            variant='outlined'
+            id='outlined-basic'
+            value={updateFormField.phone_number}
+          />
+          <TextField
+            type='text'
+            label='Qualifications'
+            color='primary'
+            name='qualifications'
+            onChange={handleUpdateChange}
+            variant='outlined'
+            id='outlined-basic'
+            value={updateFormField.qualifications}
           />
         </DialogContent>
+        <DialogActions>
+          <Button variant='contained' onClick={updateDoctor}>
+            Update
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   )

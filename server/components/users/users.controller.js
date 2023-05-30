@@ -18,6 +18,7 @@ users.get = async (req, res, next) => {
     next(new AppError('Internal server error', 502, error.message, false))
   }
 }
+
 users.updateOne = async (req, res, next) => {
   const uid = req.id
   const { displayname, address, phone_number, password, email } = req.body
@@ -73,6 +74,45 @@ users.deleteById = async (req, res, next) => {
   try {
     const { data } = await usersDb.deleteById(uid)
 
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
+
+users.getDoctorById = async (req, res, next) => {
+  const orgId = req.id
+  const doctorId = req.params.doctorId
+
+  try {
+    const { data } = await usersDb.getDoctorById(orgId, doctorId)
+
+    if (!data)
+      return next(
+        new AppError('Client Error', 409, "User doesn't exists", true)
+      )
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
+
+users.updateDoctorOne = async (req, res, next) => {
+  const orgId = req.id
+  const doctorId = req.params.doctorId
+  const modifiedDoctor = req.body
+
+  try {
+    const { data } = await usersDb.updateDoctorOne(
+      orgId,
+      doctorId,
+      modifiedDoctor
+    )
+
+    if (!data)
+      return next(
+        new AppError('Client Error', 409, "User doesn't exists", true)
+      )
     res.send(data)
   } catch (error) {
     next(new AppError('Internal server error', 502, error.message, false))
