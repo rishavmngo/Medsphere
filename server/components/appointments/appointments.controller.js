@@ -113,4 +113,34 @@ appointments.updateAppointmentsById = async (req, res, next) => {
     next(new AppError('Internal server error', 502, error.message, false))
   }
 }
+
+appointments.getOrgAppointmentsCountForToday = async (req, res, next) => {
+  const org_id = req.id
+
+  try {
+    const { data } = await appointmentsDb.getOrgAppointmentsCountForToday(
+      org_id
+    )
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
+
+appointments.getDoctorsAppointmentsCountForToday = async (req, res, next) => {
+  const org_id = req.params.orgId
+  const doctorsId = req.params.doctorsId
+
+  try {
+    const { data } = await appointmentsDb.getDoctorsAppointmentsCountForToday(
+      doctorsId,
+      org_id
+    )
+
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = appointments

@@ -36,6 +36,7 @@ prescription.getById = async (prescriptionId) => {
 	d.qualifications as doctors_qualifications,
   d.signature as doctors_signature,
 	department.name as doctors_department,
+org.uid as org_id,
 	org.displayname as organisation_name,
 	org.email as organisation_email,
 	org.address as organisation_address,
@@ -324,6 +325,63 @@ WHERE
 returning *
 		`,
     values: [prescribedAdviceId],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.getConfigrationForOrg = async (orgId) => {
+  console.log('this', orgId)
+  const response = {}
+
+  const query = {
+    text: `
+select * from configration where org_id = $1
+		`,
+    values: [orgId],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    if (!response.data) response.data = { config: '{}' }
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+prescription.addConfig = async (orgId, config) => {
+  const response = {}
+  const query = {
+    text: `
+insert into configration(config,org_id) values ( $2,$1) returning *
+		`,
+    values: [orgId, config],
+  }
+  try {
+    const { rows } = await db.query(query)
+    response.data = rows[0]
+
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+prescription.updateConfig = async (orgId, config) => {
+  const response = {}
+  const query = {
+    text: `
+update configration set config=$2 where org_id = $1 returning *
+		`,
+    values: [orgId, config],
   }
   try {
     const { rows } = await db.query(query)

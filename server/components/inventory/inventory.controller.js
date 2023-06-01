@@ -16,6 +16,8 @@ inventory.getMedicineBySubstring = async (req, res, next) => {
   const orgId = req.id
   const substring = req.params.substring
 
+  console.log(orgId, substring)
+
   try {
     const response = await inventoryDb.getMedicineBySubstring(orgId, substring)
     res.send(response.data)

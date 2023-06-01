@@ -241,5 +241,36 @@ where
 // appointments.getByUser = async () => {}
 //
 // appointments.getByUserAndDate = async () => {}
+appointments.getOrgAppointmentsCountForToday = async (orgId) => {
+  const response = {}
+  const query = `
+select count(*) as appointments from appointments where org_id  = $1 and Date("timestamp") = CURRENT_DATE;
+	`
 
+  try {
+    const { rows } = await db.query(query, [orgId])
+
+    response.data = rows[0]
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
+
+appointments.getDoctorsAppointmentsCountForToday = async (doctorsId, orgId) => {
+  console.log(doctorsId, orgId)
+  const response = {}
+  const query = `
+select count(*) as appointments from appointments where doctors_id  = $1 and Date("timestamp") = CURRENT_DATE and org_id=$2;
+	`
+
+  try {
+    const { rows } = await db.query(query, [doctorsId, orgId])
+
+    response.data = rows[0]
+    return response
+  } catch (error) {
+    throw new AppError('Database Error', 502, error.message, false)
+  }
+}
 module.exports = appointments

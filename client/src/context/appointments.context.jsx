@@ -11,6 +11,8 @@ export const AppointmentContext = createContext({
   getByOrgDoctorAndDate: () => null,
   addAppointment: () => null,
   updateAppointment: () => null,
+  getOrgAppointmentsCountForToday: () => null,
+  getDoctorsAppointmentsCountForToday: () => null,
 })
 
 const AppointmentProvider = ({ children }) => {
@@ -141,6 +143,47 @@ const AppointmentProvider = ({ children }) => {
       console.error(error)
     }
   }
+
+  const getOrgAppointmentsCountForToday = async () => {
+    console.log('called')
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3000/appointments/getOrgAppointmentsCountForToday',
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+
+      return data
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
+
+  const getDoctorsAppointmentsCountForToday = async (doctorsId, orgId) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/appointments/getDoctorsAppointmentsCountForToday/${doctorsId}/${orgId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+
+      return data
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
   const values = {
     appointments,
     getAllAppointmentsByDate,
@@ -149,6 +192,8 @@ const AppointmentProvider = ({ children }) => {
     getByOrgDoctorAndDate,
     addAppointment,
     updateAppointment,
+    getOrgAppointmentsCountForToday,
+    getDoctorsAppointmentsCountForToday,
   }
 
   return (

@@ -12,6 +12,17 @@ router.post('/getAllByDate', jwt.verify, appointments.getAllByDate)
 router.post('/getByDoctor', jwt.verify, appointments.getByDoctor)
 router.post('/getByOrg', jwt.verify, appointments.getByOrg)
 router.post('/getByDoctorAndDate', jwt.verify, appointments.getByDoctorAndDate)
+router.get(
+  '/getOrgAppointmentsCountForToday',
+  jwt.verify,
+  appointments.getOrgAppointmentsCountForToday
+)
+router.get(
+  '/getDoctorsAppointmentsCountForToday/:doctorsId/:orgId',
+  jwt.verify,
+  appointments.getDoctorsAppointmentsCountForToday
+)
+// router.post('/getDoctorsAppointmentCountForToday',jwt.verify,appointments.)
 router.post(
   '/getByOrgDoctorAndDate',
   jwt.verify,

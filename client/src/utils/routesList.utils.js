@@ -23,20 +23,20 @@ export const generalRoutesList = {
     forAdmin: false,
   },
 
-  patients: {
-    id: 3,
-    name: 'Patients',
-    path: '/patients',
-    icon: <FaHospitalUser />,
-    forAdmin: false,
-  },
-  history: {
-    id: 4,
-    name: 'History',
-    path: '/history',
-    icon: <FaHistory />,
-    forAdmin: false,
-  },
+  // patients: {
+  //   id: 3,
+  //   name: 'Patients',
+  //   path: '/patients',
+  //   icon: <FaHospitalUser />,
+  //   forAdmin: false,
+  // },
+  // history: {
+  //   id: 4,
+  //   name: 'History',
+  //   path: '/history',
+  //   icon: <FaHistory />,
+  //   forAdmin: false,
+  // },
 }
 
 export const adminRouteList = {

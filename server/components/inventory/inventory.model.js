@@ -21,8 +21,8 @@ inventory.getMedicinebyOrgId = async (orgId) => {
 inventory.getMedicineBySubstring = async (orgId, substring) => {
   const response = {}
   const query = {
-    text: 'select * from medicine where org_id=$1 and (lower(brand_name) like $2 or lower(generic) like $2);',
-    values: [orgId, `%${substring.toLowerCase()}%`],
+    text: 'select * from medicine where  (lower(brand_name) like $1 or lower(generic) like $1);',
+    values: [`%${substring.toLowerCase()}%`],
   }
   try {
     const { rows } = await db.query(query)

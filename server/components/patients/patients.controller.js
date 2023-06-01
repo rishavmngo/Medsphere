@@ -36,4 +36,29 @@ patients.getBySubstring = async (req, res, next) => {
     next(new AppError('Internal server error', 502, error.message, false))
   }
 }
+
+patients.deleteById = async (req, res, next) => {
+  const orgId = req.id
+  const patientId = req.params.patientId
+
+  try {
+    const { data } = await patientsDb.deleteById(orgId, patientId)
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
+
+patients.updateById = async (req, res, next) => {
+  const orgId = req.id
+  const patientId = req.params.patientId
+  const patient = req.body
+
+  try {
+    const { data } = await patientsDb.updateById(orgId, patientId, patient)
+    res.send(data)
+  } catch (error) {
+    next(new AppError('Internal server error', 502, error.message, false))
+  }
+}
 module.exports = patients

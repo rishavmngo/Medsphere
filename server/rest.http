@@ -263,3 +263,17 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxN
 
 GET http://localhost:3000/users/getDoctorById/6
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+
+
+GET http://localhost:3000/appointments/getOrgAppointmentsCountForToday
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+GET http://localhost:3000/appointments/getDoctorsAppointmentsCountForToday/6
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+GET http://localhost:3000/inventory/medicine/has/dol
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk
+
+GET http://localhost:3000/prescription/configration/get/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgzODA5MTc3fQ.T5Hwhykq3cY45-VGV4hITKytC3VGrOGdZ1MtWOiY2Nk

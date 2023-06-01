@@ -88,7 +88,6 @@ const App = () => {
 const PrivateRoute = () => {
   const { user } = useContext(AuthContext)
 
-  console.log('user', user)
   return user ? <Outlet /> : <Navigate to='/auth' />
 }
 const ProtectedRoute = ({ children, auth }) => {
@@ -104,7 +103,6 @@ const AdminRoutes = ({ admin }) => {
 const Kpp = () => {
   const { autoLogin, user } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(true)
-  console.log(user)
 
   useEffect(() => {
     autoLogin().then(() => {

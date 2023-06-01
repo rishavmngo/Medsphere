@@ -1,0 +1,12 @@
+.config-unit-container {
+  display: flex;
+}
+.preview {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  background: lime;
+  margin: auto 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+}

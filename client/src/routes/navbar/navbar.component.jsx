@@ -1,14 +1,11 @@
 import './navbar.style.css'
-
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
 import { BsChevronDown } from 'react-icons/bs'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
 import NavDropdown from '../../component/navDropDown/navDropDown.component'
+import FallBackImage from '../../assets/rishav-pic.jpeg'
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext)
-  console.log(user)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const navRef = useRef()
@@ -45,8 +42,8 @@ const Navbar = () => {
           >
             <div className='Account-details'>
               <div className='Account-pic'>
-                {!user.profile_picture ? (
-                  <img src='../../assets/rishav-pic.jpeg' />
+                {!user.profile_picture || !user.is_organisation ? (
+                  <img src={FallBackImage} />
                 ) : (
                   <img
                     src={`http://localhost:3000/static/${user.profile_picture}`}

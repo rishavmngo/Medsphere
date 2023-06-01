@@ -34,6 +34,7 @@
   height: 29.7cm;
   /* grid-template-columns: 1; */
   grid-template-rows: 14% 15% 35% 21% 15%;
+  background-color: red;
 }
 .child-section {
   padding: 15px;
@@ -146,7 +147,7 @@
   width: auto;
   height: auto;
   max-height: 70px;
-  background: white;
+  /* background: white; */
   /* object-fit: cover; */
 }
 .export-signature-doctor-name {

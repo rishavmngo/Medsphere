@@ -62,4 +62,16 @@ router.delete(
   jwt.verify,
   prescription.deletePrescribedAdviceById
 )
+
+router.get(
+  '/configration/get/:orgId',
+  jwt.verify,
+  prescription.getConfigrationForOrg
+)
+router.put(
+  '/configration/update/:orgId',
+  jwt.verify,
+  prescription.updateConfigration
+)
+
 module.exports = router

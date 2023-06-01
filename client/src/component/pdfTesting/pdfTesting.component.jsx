@@ -12,6 +12,8 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
     prescribedAdvice,
     getPrescribedMedicine,
     getPrescribedAdvice,
+    fetchOrgConfigration,
+    orgConfigration,
   } = useContext(PrescriptionContext)
   const handleExport = () => {
     printDocument(input.current)
@@ -33,14 +35,15 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
     patients_name,
     id,
     timestamp,
+    org_id,
   } = preview
-
   const date = new Date(timestamp)
   const localFormat = date.toLocaleString().split(',')[0]
 
   useEffect(() => {
     getPrescribedMedicine(id)
     getPrescribedAdvice(id)
+    fetchOrgConfigration(org_id)
   }, [id])
   useEffect(() => {}, [input])
   return (
@@ -62,9 +65,23 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
         </Button>
       </div>
       <div ref={input} className='pdf4'>
-        <div className='section-one child-section'>
+        <div
+          className='section-one child-section'
+          style={{
+            backgroundColor:
+              orgConfigration && orgConfigration.prescription_background
+                ? orgConfigration.prescription_background
+                : 'white',
+          }}
+        >
           <div className='export__doctors-info'>
-            <span className='export_doctor_name'>
+            <span
+              className='export_doctor_name'
+              style={{
+                color:
+                  orgConfigration && orgConfigration.prescription_primary_color,
+              }}
+            >
               Dr. {preview.doctors_name}
             </span>
             <span className='export_doctor_qulification'>
@@ -81,7 +98,15 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
             <img src={`http://localhost:3000/static/${preview.org_logo}`} />
           </div>
           <div className='export__org_info'>
-            <span className='export_org_name'>{organisation_name}</span>
+            <span
+              className='export_org_name'
+              style={{
+                color:
+                  orgConfigration && orgConfigration.prescription_primary_color,
+              }}
+            >
+              {organisation_name}
+            </span>
             <span className='export__org_address'>
               {!!organisation_address
                 ? organisation_address
@@ -97,7 +122,15 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
           </div>
         </div>
 
-        <div className='section-two child-section'>
+        <div
+          className='section-two child-section'
+          style={{
+            backgroundColor:
+              orgConfigration && orgConfigration.prescription_background
+                ? orgConfigration.prescription_background
+                : 'white',
+          }}
+        >
           <span className='export__section-two-item'>
             <span className='export_item-first'>ID {patients_id} -</span>
             <span className='export_item-two'>{patients_name}</span>
@@ -121,17 +154,20 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
             <span className='export_item-two'>{patients_address}</span>
           </span>
         </div>
-        <div className='section-three child-section'>
+        <div
+          className='section-three child-section'
+          style={{
+            backgroundColor:
+              orgConfigration && orgConfigration.prescription_background
+                ? orgConfigration.prescription_background
+                : 'white',
+          }}
+        >
           <div className='section-three-table-header'>
             <span>Medicine Name</span>
             <span>Dosage</span>
             <span>Duration</span>
           </div>
-          {/* <div className='section-three-table-row'> */}
-          {/*   <span>Resant - Tablet</span> */}
-          {/*   <span>1 morning, 1 night</span> */}
-          {/*   <span>10 days</span> */}
-          {/* </div> */}
           {prescribedMedicine.map(
             ({
               prescribed_medicine_id,
@@ -155,7 +191,15 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
             }
           )}
         </div>
-        <div className='section-four child-section'>
+        <div
+          className='section-four child-section'
+          style={{
+            backgroundColor:
+              orgConfigration && orgConfigration.prescription_background
+                ? orgConfigration.prescription_background
+                : 'white',
+          }}
+        >
           <h2 className='advice-given-title'>Advice Given: </h2>
           <div className='export_advice-list'>
             {prescribedAdvice.map(({ advice, id }) => {
@@ -163,7 +207,15 @@ const Pdf = ({ prescriptionId, preview, togglePreview }) => {
             })}
           </div>
         </div>
-        <div className='section-five child-section'>
+        <div
+          className='section-five child-section'
+          style={{
+            backgroundColor:
+              orgConfigration && orgConfigration.prescription_background
+                ? orgConfigration.prescription_background
+                : 'white',
+          }}
+        >
           <div className='export-signature-component'>
             <span className='export_signature'>
               <img

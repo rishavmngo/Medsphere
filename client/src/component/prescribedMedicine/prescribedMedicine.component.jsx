@@ -26,6 +26,7 @@ const InsertPrescribedMedicine = ({ prescriptionId }) => {
 
   const handleInput = (e) => {
     if (!inputActive) setInputActive(true)
+    // console.log(e.target.value)
     setMedicine(e.target.value)
   }
   const decideDosage = () => {
@@ -98,12 +99,12 @@ const InsertPrescribedMedicine = ({ prescriptionId }) => {
   useEffect(() => {
     const getData = setTimeout(async () => {
       const meds = await getPrescribedMedicineBySubstring(medicine)
-      // console.log(meds)
       setMedicineList(meds)
     }, 500)
 
     return () => clearTimeout(getData)
   }, [medicine])
+
   return (
     <div className='insertPrescribedMedicine'>
       <div className='medicine-input-component'>

@@ -352,6 +352,12 @@ const DoctorsEntity = () => {
           <Button variant='contained' onClick={updateDoctor}>
             Update
           </Button>
+          <Button
+            variant='outlined'
+            onClick={() => toggleOpenEditDoctor(false)}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </>

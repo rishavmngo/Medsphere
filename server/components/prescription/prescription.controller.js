@@ -162,4 +162,32 @@ prescription.deletePrescribedAdviceById = async (req, res, next) => {
     next(new AppError('Internal sever error', 500, error.message, false))
   }
 }
+
+prescription.getConfigrationForOrg = async (req, res, next) => {
+  const orgId = req.params.orgId
+
+  try {
+    const response = await prescriptionDb.getConfigrationForOrg(orgId)
+    res.send(response.data)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
+
+prescription.updateConfigration = async (req, res, next) => {
+  const orgId = req.params.orgId
+  const { config } = req.body
+
+  try {
+    const response = await prescriptionDb.getConfigrationForOrg(orgId)
+    let result
+    console.log(response.data.config.length)
+    if (response.data.config.length > 5)
+      result = await prescriptionDb.updateConfig(orgId, config)
+    else result = await prescriptionDb.addConfig(orgId, config)
+    res.send(result)
+  } catch (error) {
+    next(new AppError('Internal sever error', 500, error.message, false))
+  }
+}
 module.exports = prescription

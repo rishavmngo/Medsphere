@@ -3,7 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 import { PatientsContext } from '../../context/patients.context'
 import ManageTable from '../manageTable/manageTable.component'
 
-const PatientsList = () => {
+const PatientsList = ({ actionArr }) => {
   const { getPatientsForOrg, patients } = useContext(PatientsContext)
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const PatientsList = () => {
       columns={['Name', 'Age', 'Gender']}
       bodyData={['name', 'age', 'gender']}
       pkey='id'
-      actionArr={[]}
+      actionArr={actionArr}
     />
   )
 }

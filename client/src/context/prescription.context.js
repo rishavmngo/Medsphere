@@ -1,9 +1,14 @@
 import axios from 'axios'
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { getTokenFromLocalStorage } from '../utils/localstorage.js'
 
+const defaultConfig = {
+  prescription_background: 'white',
+  prescription_primary_color: 'crimson',
+}
 export const PrescriptionContext = createContext({
   currentPrescription: {},
+  orgConfigration: {},
   getPrescrcriptionById: () => null,
   createPrescription: () => null,
   getPrescribedMedicine: () => null,
@@ -14,12 +19,15 @@ export const PrescriptionContext = createContext({
   getPrescribedAdvice: () => null,
   addPrescribedAdvice: () => null,
   deletePrescribedAdvice: () => null,
+  fetchOrgConfigration: () => null,
+  updateOrgConfigration: () => null,
 })
 
 const PrescriptionProvider = ({ children }) => {
   const [currentPrescription, setCurrentPrescription] = useState({})
   const [prescribedMedicine, setPrescribedMedicine] = useState([])
   const [prescribedAdvice, setPrescribedAdvice] = useState([])
+  const [orgConfigration, setOrgConfigration] = useState({})
 
   const getPrescrcriptionById = async (prescriptionId) => {
     const token = getTokenFromLocalStorage()
@@ -184,6 +192,54 @@ const PrescriptionProvider = ({ children }) => {
     }
   }
 
+  const fetchOrgConfigration = async (orgId) => {
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/prescription/configration/get/${orgId}`,
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      setOrgConfigration(JSON.parse(data.config))
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+
+  const updateOrgConfigration = async (orgId, configJson) => {
+    if (Object.keys(configJson) < 1) return false
+    const config = JSON.stringify(configJson)
+    const token = getTokenFromLocalStorage()
+    if (!token) return
+    try {
+      const { data } = await axios.put(
+        `http://localhost:3000/prescription/configration/update/${orgId}`,
+        {
+          config: config,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      await fetchOrgConfigration(orgId)
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+  useEffect(() => {
+    console.log('org', orgConfigration)
+  }, [orgConfigration])
+
   const values = {
     getPrescrcriptionById,
     currentPrescription,
@@ -196,6 +252,9 @@ const PrescriptionProvider = ({ children }) => {
     prescribedAdvice,
     addPrescribedAdvice,
     deletePrescribedAdvice,
+    orgConfigration,
+    fetchOrgConfigration,
+    updateOrgConfigration,
   }
 
   return (

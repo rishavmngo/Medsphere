@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/auth.context'
 import ButtonPrime from '../../component/primary_btn/primary_btn.component'
 import './settings.style.css'
 import UpdateOrg from '../../component/updateOrg/updateOrg.component'
+import Configration from '../../component/configration/configration.component'
 
 const Settings = () => {
   const [displayImage, setDisplayImage] = useState(null)
@@ -49,6 +50,7 @@ const Settings = () => {
         )}
       </div>
       <UpdateOrg user={user} updateOrganisation={updateOrganisation} />
+      <Configration user={user} />
     </div>
   )
 }
